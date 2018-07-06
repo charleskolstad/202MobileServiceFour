@@ -29,14 +29,14 @@ CREATE TABLE Business
 )
 
 --business users
-CREATE TABLE BusinessUsers
-(
-	BusinessUsersID INT IDENTITY(1,1) PRIMARY KEY,
-	ContactName VARCHAR(100) NOT NULL,
-	UserName NVARCHAR(256) NOT NULL,
-	ContactPhone VARCHAR(20) NULL,
-	Active BIT NOT NULL
-)
+--CREATE TABLE BusinessUsers
+--(
+--	BusinessUsersID INT IDENTITY(1,1) PRIMARY KEY,
+--	ContactName VARCHAR(100) NOT NULL,
+--	UserName NVARCHAR(256) NOT NULL,
+--	ContactPhone VARCHAR(20) NULL,
+--	Active BIT NOT NULL
+--)
 
 --app requests
 CREATE TABLE AppRequest

@@ -1,0 +1,24 @@
+body {
+  padding-top: 3.5rem;
+}
+
+.hero-image{
+    height: 45vh;
+    padding-top: 10%;
+    background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.45), 
+      rgba(0, 0, 0, 0.45)
+    ),
+    url(../img/StockSnap_ZYGIOUX4QU.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0;
+    color: white;
+}
+
+.main{
+    margin-bottom: 1em;
+}
+
+.call-to-action{ margin-bottom: 1em; }

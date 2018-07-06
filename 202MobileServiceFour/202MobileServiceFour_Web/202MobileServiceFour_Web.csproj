@@ -90,6 +90,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\style.css" />
+    <Content Include="Assets\IMG\daniel-suarez-photography-107973-unsplash.jpg" />
+    <Content Include="Assets\IMG\dewet-willemse-360936-unsplash.jpg" />
+    <Content Include="Assets\IMG\StockSnap_CJHT72QTRI.jpg" />
+    <Content Include="Assets\IMG\StockSnap_ZYGIOUX4QU.jpg" />
+    <Content Include="Assets\IMG\swaminathan-jayaraman-707678-unsplash.jpg" />
+    <Content Include="Assets\JS\requestapp.js" />
+    <Content Include="Assets\JS\requestctrl.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -104,6 +112,11 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Default\OrderApp.cshtml" />
+    <Content Include="Views\Default\BusinessInfo.cshtml" />
+    <Content Include="Views\Default\ClientRegister.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,7 +124,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\202MobileServiceFour_Core\202MobileServiceFour_Core.csproj">
+      <Project>{50a31106-6256-4e67-bab1-ab1bb70060f3}</Project>
+      <Name>202MobileServiceFour_Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\202MobileServiceFour_Model\202MobileServiceFour_Model.csproj">
+      <Project>{463dc221-6610-4c48-a8f1-72ae98b4fe17}</Project>
+      <Name>202MobileServiceFour_Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
