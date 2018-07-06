@@ -42,6 +42,29 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="202html\AdminApps_html\allusers.html" />
+    <Content Include="202html\AdminApps_html\Assets\CSS\admin.css" />
+    <Content Include="202html\AdminApps_html\Assets\CSS\login.css" />
+    <Content Include="202html\AdminApps_html\Assets\IMG\_MG_mobile.jpg" />
+    <Content Include="202html\AdminApps_html\Assets\JS\angular\AdminModule.js" />
+    <Content Include="202html\AdminApps_html\Assets\JS\angular\UsersCtrl.js" />
+    <Content Include="202html\AdminApps_html\Assets\JS\SideNav.js" />
+    <Content Include="202html\AdminApps_html\index.html" />
+    <Content Include="202html\AdminApps_html\profile.html" />
+    <Content Include="202html\assets\css\style.css" />
+    <Content Include="202html\assets\img\daniel-suarez-photography-107973-unsplash.jpg" />
+    <Content Include="202html\assets\img\dewet-willemse-360936-unsplash.jpg" />
+    <Content Include="202html\assets\img\StockSnap_CJHT72QTRI.jpg" />
+    <Content Include="202html\assets\img\StockSnap_ZYGIOUX4QU.jpg" />
+    <Content Include="202html\assets\img\swaminathan-jayaraman-707678-unsplash.jpg" />
+    <Content Include="202html\assets\js\requestapp.js" />
+    <Content Include="202html\assets\js\requestctrl.js" />
+    <Content Include="202html\index.html" />
+    <Content Include="202html\ourprojects.html" />
+    <Content Include="202html\yourapp.html" />
+    <Content Include="SQL\Tables.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
