@@ -1,12 +1,102 @@
 --features
-CREATE TABLE Features
+CREATE TABLE Feature
 (
-	FeaturesID INT IDENTITY(1,1) PRIMARY KEY,
+	FeatureID INT IDENTITY(1,1) PRIMARY KEY,
 	FeatureName VARCHAR(50) NOT NULL,
 	MainFeature BIT NOT NULL,
 	FeatureDescription VARCHAR(5000) NULL,
-	Ative BIT
+	Active BIT
 )
+GO
+
+CREATE PROCEDURE [dbo].[p_Feature_Insert]
+(
+	 @FeatureName varchar(50)
+	,@MainFeature bit
+	,@FeatureDescription varchar(5000) = NULL
+)
+AS
+BEGIN
+--creted <date>:cpk
+--<Notes>
+	SET NOCOUNT ON;
+
+	INSERT INTO [dbo].[Feature]
+			   ([FeatureName]
+			   ,[MainFeature]
+			   ,[FeatureDescription]
+			   ,[Active])
+		 VALUES
+			   (@FeatureName --varchar(50)
+			   ,@MainFeature --bit
+			   ,@FeatureDescription --varchar(5000)
+			   ,1)
+
+	SELECT @@IDENTITY
+
+	--GRANT EXECUTE ON [dbo].[proc name] TO [user brackets required.]
+END
+GO
+
+CREATE PROCEDURE [dbo].[p_Feature_Update]
+(
+	 @FeatureID int
+	,@FeatureName varchar(50)
+	,@MainFeature bit
+	,@FeatureDescription varchar(5000)
+)
+AS
+BEGIN
+--creted <date>:cpk
+--<Notes>
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[Feature]
+	   SET [FeatureName] = @FeatureName --varchar(50)
+		  ,[MainFeature] = @MainFeature --bit
+		  ,[FeatureDescription] = @FeatureDescription --varchar(5000)
+	 WHERE [FeatureID] = @FeatureID
+
+	--GRANT EXECUTE ON [dbo].[proc name] TO [user brackets required.]
+END
+GO
+
+CREATE PROCEDURE [dbo].[p_Feature_Delete]
+(
+	 @FeatureID int
+)
+AS
+BEGIN
+--creted <date>:cpk
+--<Notes>
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[Feature]
+	   SET [Active] = 0
+	 WHERE [FeatureID] = @FeatureID
+
+	--GRANT EXECUTE ON [dbo].[proc name] TO [user brackets required.]
+END
+GO
+
+CREATE PROCEDURE [dbo].[p_Feature_GetActive]
+AS
+BEGIN
+--creted <date>:cpk
+--<Notes>
+	SET NOCOUNT ON;
+
+	SELECT [FeatureID]
+		  ,[FeatureName]
+		  ,[MainFeature]
+		  ,[FeatureDescription]
+		  ,[Active]
+	  FROM [dbo].[Feature]
+	 WHERE [Active] = 1
+
+	--GRANT EXECUTE ON [dbo].[proc name] TO [user brackets required.]
+END
+GO
 
 --business
 CREATE TABLE Business
