@@ -1,0 +1,39 @@
+﻿@model IEnumerable<_202MobileServiceFour_Model.Features>
+
+<h3><i class="fa fa-mobile" aria-hidden="true"></i> Select Your App Features</h3><hr>
+
+@using (Html.BeginForm("ClientRegister", "Default", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        @foreach (var item in Model.Where(m => m.MainFeature))
+        {
+            <div class="col-6">
+                <label class="custom-control custom-radio">
+                    @Html.CheckBoxFor(modelItem => item.Active, new { @class = "custom-control-input" })
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">
+                        <h4>@item.FeatureName</h4>
+                        @item.FeatureDescription
+                    </span>
+                </label>
+            </div>
+        }
+
+    </div><hr />
+    <div class="row">
+        @foreach (var item in Model.Where(m => m.MainFeature == false))
+        {
+            <div class="col-3">
+                <label class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(modelItem => item.Active, new { @class = "custom-control-input" })
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">@item.FeatureName</span>
+                </label>
+            </div>
+        }
+
+    </div>
+}
+

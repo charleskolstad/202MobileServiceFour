@@ -90,12 +90,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\admin.css" />
     <Content Include="Assets\CSS\style.css" />
     <Content Include="Assets\IMG\daniel-suarez-photography-107973-unsplash.jpg" />
     <Content Include="Assets\IMG\dewet-willemse-360936-unsplash.jpg" />
     <Content Include="Assets\IMG\StockSnap_CJHT72QTRI.jpg" />
     <Content Include="Assets\IMG\StockSnap_ZYGIOUX4QU.jpg" />
     <Content Include="Assets\IMG\swaminathan-jayaraman-707678-unsplash.jpg" />
+    <Content Include="Assets\JS\Angular\AdminModule.js" />
+    <Content Include="Assets\JS\Angular\FeatureCtrl.js" />
+    <Content Include="Assets\JS\Angular\ProfileCtrl.js" />
+    <Content Include="Assets\JS\Angular\UserCtrl.js" />
+    <Content Include="Assets\JS\crop.js" />
     <Content Include="Assets\JS\requestapp.js" />
     <Content Include="Assets\JS\requestctrl.js" />
     <Content Include="Global.asax" />
@@ -103,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -113,10 +120,14 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Default\OrderApp.cshtml" />
+    <Content Include="Views\Admin\AllFeatures.cshtml" />
+    <Content Include="Views\Admin\AllUsers.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\UserProfile.cshtml" />
     <Content Include="Views\Default\BusinessInfo.cshtml" />
     <Content Include="Views\Default\ClientRegister.cshtml" />
+    <Content Include="Views\Default\Features.cshtml" />
+    <Content Include="Views\Default\OrderApp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -134,6 +145,7 @@
       <Name>202MobileServiceFour_Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

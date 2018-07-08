@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace _202MobileService_Web.Controllers
+namespace _202MobileServiceFour_Web.Controllers
 {
     public class DefaultController : Controller
     {
@@ -20,9 +20,10 @@ namespace _202MobileService_Web.Controllers
             return View();
         }
 
-        public ActionResult OrderApp()
+        public ActionResult OrderApp(string page)
         {
-            ViewData["Page"] = "ClientRegister";
+            ViewData["Page"] = (string.IsNullOrEmpty(page)) ? "ClientRegister" : page;
+            ViewBag.typeList = WebTypeList();
             return View();
         }
 
@@ -34,8 +35,7 @@ namespace _202MobileService_Web.Controllers
         [HttpPost]
         public ActionResult ClientRegister(UserInfo user)
         {
-            ViewData["Page"] = "BusinessInfo";
-            return RedirectToAction("BusinessInfo");
+            return RedirectToAction("OrderApp", new { page = "BusinessInfo" });
         }
 
         public ActionResult BusinessInfo()
@@ -43,14 +43,31 @@ namespace _202MobileService_Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult BusinessInfo(Business business)
+        {
+            return RedirectToAction("OrderApp", new { page = "Features" });
+        }
+
         public ActionResult Features()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Features(Features features)
+        {
+            return RedirectToAction("OrderApp", new { page = "OrderResult" });
+        }
+
         public ActionResult OrderResult()
         {
             return View();
+        }
+
+        private List<string> WebTypeList()
+        {
+            return new List<string>() { "A", "B", "C" };
         }
     }
 }

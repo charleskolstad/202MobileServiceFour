@@ -18,8 +18,19 @@
 
     <div class="row">
         <div class="col-12">
-            @{ 
-                Html.RenderPartial(ViewData["Page"].ToString());
+            @{
+                switch (ViewData["Page"].ToString())
+                {
+                    case "ClientRegister":
+                        Html.RenderPartial("ClientRegister");
+                        break;
+                    case "BusinessInfo":
+                        Html.RenderPartial("BusinessInfo");
+                        break;
+                    case "Features":
+                        Html.RenderPartial("Features", _202MobileServiceFour_Core.FeatureManager.GetAllFeatures(false));
+                        break;
+                }
             }
         </div>
     </div>

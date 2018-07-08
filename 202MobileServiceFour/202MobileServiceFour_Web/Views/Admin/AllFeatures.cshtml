@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div ng-controller="FeatureCtrl">
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <button class="btn btn-success" ng-click="SetupFeature()">Add Feature</button><br />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Feature Name</th>
+                        <th scope="col">Main Feature</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="feature in data.Features">
+                        <th scope="row">{{feature.FeatureName}}</th>
+                        <td>{{feature.MainFeature?'Yes':'No'}}</td>
+                        <td>
+                            <button class="btn btn-info" ng-click="SetupFeature(feature)">Edit</button>
+                            <button class="btn btn-warning" ng-click="DeleteFeature(feature)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+
+    <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Feature</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div ng-show="Edit">
+                        <label for="">Feature Name</label>
+                        <input type="text" class="form-control" ng-model="Feature.FeatureName">
+
+                        <label for="">Feature Description</label>
+                        <input type="text" class="form-control" ng-model="Feature.FeatureDescription">
+
+                        <input type="checkbox" class="form-check-input ml-1" id="exampleCheck1" ng-model="Feature.MainFeature">
+                        <label class="form-check-label" for="exampleCheck1">Is Main Feature</label> <hr />
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" ng-click="SaveFeature(Feature)">Save</button>
+                    </div>
+                    <div ng-hide="Edit">
+                        Are you sure you want to delete {{Feature.FeatureName}}?<hr />
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary" ng-click="ConfirmDelete()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
