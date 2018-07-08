@@ -40,7 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SprocCalls.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\202MobileServiceFour_Model\202MobileServiceFour_Model.csproj">
+      <Project>{463dc221-6610-4c48-a8f1-72ae98b4fe17}</Project>
+      <Name>202MobileServiceFour_Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
