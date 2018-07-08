@@ -8,9 +8,10 @@ namespace _202MobileServiceFour_Model
 {
     public class Features
     {
-        public int FeaturesID { get; set; }
+        public int FeatureID { get; set; }
         public string FeatureName { get; set; }
         public bool MainFeature { get; set; }
         public string FeatureDescription { get; set; }
+        public bool Active { get; set; }
     }
 }

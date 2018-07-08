@@ -10,6 +10,7 @@ namespace _202MobileServiceFour_Model
     {
         public int BusinessID { get; set; }
         public string BusinessName { get; set; }
+        public string BusinessPhone { get; set; }
         public string BusinessEmail { get; set; }
         public string BusinessAddress { get; set; }
         public string BusinessHoursStart { get; set; }
