@@ -146,14 +146,21 @@ namespace _202MobileServiceFour_Core
         {
             try
             {
-                string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-                if (Regex.IsMatch(user.Email, emailRegEx, RegexOptions.IgnoreCase) == false)
-                    return "Please provide valid email.";
+                string errorMessage = string.Empty;
+
+                if (string.IsNullOrEmpty(user.Email))
+                    errorMessage += "Email is required. <br />";
+                else
+                {
+                    string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+                    if (Regex.IsMatch(user.Email, emailRegEx, RegexOptions.IgnoreCase) == false)
+                        errorMessage += "Please provide valid email.<br />";
+                }
 
                 if (user.GroupUsers.Count <= 0)
-                    return "Error loading user groups.";
+                    errorMessage += "Error loading user groups. <br />";
 
-                return string.Empty;
+                return errorMessage;
             }
             catch (Exception ex)
             {
@@ -165,21 +172,26 @@ namespace _202MobileServiceFour_Core
         public static string ValidateClient(UserInfo user)
         {
             string errorMessage = ValidateUser(user);
-
-            if (string.IsNullOrEmpty(errorMessage))
+            
+            if (string.IsNullOrEmpty(user.Phone) == false)
             {
-                if (string.IsNullOrEmpty(user.Phone) == false)
-                {
-                    string phoneRegEx = @"^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$";
-                    if (Regex.IsMatch(user.Phone, phoneRegEx, RegexOptions.IgnoreCase) == false)
-                        errorMessage = "Please provide valid phone number.";
-                }
+                string phoneRegEx = @"^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$";
+                if (Regex.IsMatch(user.Phone, phoneRegEx, RegexOptions.IgnoreCase) == false)
+                    errorMessage += "Please provide valid phone number.<br />";
+            }
 
-                if (user.Password != user.ConfirmPassword)
-                    errorMessage += "<br />Confirm password does not match.";
-
-                if (string.IsNullOrEmpty(user.Name))
-                    errorMessage = "Name is required.";
+            if (string.IsNullOrEmpty(user.Name))
+                errorMessage += "Name is required.<br />";
+            if (string.IsNullOrEmpty(user.UserName))
+                errorMessage += "User Name is required.<br />";
+            if (string.IsNullOrEmpty(user.Password))
+                errorMessage += "Password is required.<br />";
+            else
+            {
+                if (user.Password.Length < 9)
+                    errorMessage += "Your password needs to be atleast 9 characters long.<br />";
+                else if (user.Password != user.ConfirmPassword)
+                    errorMessage += "Confirm password does not match.<br />";
             }
 
             return errorMessage;

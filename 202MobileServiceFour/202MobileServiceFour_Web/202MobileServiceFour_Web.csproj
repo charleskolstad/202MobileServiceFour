@@ -101,6 +101,7 @@
     <Content Include="Assets\JS\Angular\FeatureCtrl.js" />
     <Content Include="Assets\JS\Angular\ProfileCtrl.js" />
     <Content Include="Assets\JS\Angular\UserCtrl.js" />
+    <Content Include="Assets\JS\clientpword.js" />
     <Content Include="Assets\JS\controlattributes.js" />
     <Content Include="Assets\JS\crop.js" />
     <Content Include="Assets\JS\inputmask.js" />

@@ -25,6 +25,7 @@ namespace _202MobileServiceFour_Web.Controllers
         {
             ViewData["Page"] = (string.IsNullOrEmpty(page)) ? "ClientRegister" : page;
             ViewBag.typeList = WebTypeList();
+            ViewBag.ErrorMessage = TempData["errorMessage"];
             return View();
         }
 
@@ -36,8 +37,17 @@ namespace _202MobileServiceFour_Web.Controllers
         [HttpPost]
         public ActionResult ClientRegister(UserInfo user)
         {
+            user.GroupUsers = UserManager.GroupsGetAll();
+            user.GroupUsers.Where(g => g.GroupLevel == 0).FirstOrDefault().Active = true;
             string errorMessage = UserManager.ValidateClient(user);
-            return RedirectToAction("OrderApp", new { page = "BusinessInfo" });
+
+            if (string.IsNullOrEmpty(errorMessage))
+                return RedirectToAction("OrderApp", new { page = "BusinessInfo" });
+            else
+            {
+                TempData["errorMessage"] = errorMessage;
+                return RedirectToAction("OrderApp", new { page = "ClientRegister" });
+            }
         }
 
         public ActionResult BusinessInfo()

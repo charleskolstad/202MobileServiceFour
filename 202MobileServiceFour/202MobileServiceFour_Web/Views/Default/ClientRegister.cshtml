@@ -4,6 +4,10 @@
     @Html.AntiForgeryToken()
 
     <h3><i class="fa fa-phone" aria-hidden="true"></i> Register</h3><hr>
+    if (ViewBag.ErrorMessage != null)
+    {
+        <span class="text-danger">@Html.Raw(ViewBag.ErrorMessage)</span><hr />
+    }
 
     <div class="form-group row">
         <label for="txtYourName" class="col-3 col-form-label">Your Name</label>
