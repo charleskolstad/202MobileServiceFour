@@ -101,7 +101,9 @@
     <Content Include="Assets\JS\Angular\FeatureCtrl.js" />
     <Content Include="Assets\JS\Angular\ProfileCtrl.js" />
     <Content Include="Assets\JS\Angular\UserCtrl.js" />
+    <Content Include="Assets\JS\controlattributes.js" />
     <Content Include="Assets\JS\crop.js" />
+    <Content Include="Assets\JS\inputmask.js" />
     <Content Include="Assets\JS\requestapp.js" />
     <Content Include="Assets\JS\requestctrl.js" />
     <Content Include="Global.asax" />
@@ -129,6 +131,9 @@
     <Content Include="Views\Default\Features.cshtml" />
     <Content Include="Views\Default\OrderApp.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Admin\ManageAccount.cshtml" />
+    <Content Include="Views\Admin\RecoverPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

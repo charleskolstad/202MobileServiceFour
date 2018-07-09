@@ -53,10 +53,10 @@ namespace _202MobileServiceFour_Core
                 if (string.IsNullOrEmpty(errorMessage))
                 {
                     id = sprocCalls.FeaturesInsert(feature);
-                    if (id > -1)
-                        emailTools.SendToAll("New Feature created : " + feature.FeatureName + "<br />Description : " + feature.FeatureDescription);
-                    else
-                        errorMessage = "Error inserting new feature " + feature.FeatureName + ".";
+                    if (id <= 0)
+                        errorMessage = "Error inserting new feature " + feature.FeatureName + ".";                    
+                    //else
+                    //    emailTools.SendToAll("New Feature created : " + feature.FeatureName + "<br />Description : " + feature.FeatureDescription);
                 }
             }
             catch (Exception ex)

@@ -17,7 +17,7 @@ namespace _202MobileServiceFour_Web.Controllers
         public ActionResult Index()
         {
             Provider provider = new Provider();
-            UserInfo model = UserManager.GetUserByName("cpkolsta");//User.Identity.Name);
+            UserInfo model = UserManager.GetUserByName(User.Identity.Name);
             return View(model);
         }
 
@@ -178,7 +178,7 @@ namespace _202MobileServiceFour_Web.Controllers
 
         public JsonResult GetUserByName()
         {
-            UserInfo userInfo = UserManager.GetUserByName("cpkolsta");//User.Identity.Name);
+            UserInfo userInfo = UserManager.GetUserByName(User.Identity.Name);
             return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
 
@@ -194,7 +194,7 @@ namespace _202MobileServiceFour_Web.Controllers
         public string SaveProfileImage(string newImage)
         {
             string errorMessage = string.Empty;
-            UserInfo userInfo = UserManager.GetUserByName("cpkolsta");//User.Identity.Name);
+            UserInfo userInfo = UserManager.GetUserByName(User.Identity.Name);
 
             string fileName = "~/Assets/IMG/UploadIMG/" + Guid.NewGuid().ToString() + ".png";
             byte[] data = Convert.FromBase64String(newImage);

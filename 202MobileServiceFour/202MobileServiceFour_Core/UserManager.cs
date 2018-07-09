@@ -162,6 +162,29 @@ namespace _202MobileServiceFour_Core
             }
         }
 
+        public static string ValidateClient(UserInfo user)
+        {
+            string errorMessage = ValidateUser(user);
+
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                if (string.IsNullOrEmpty(user.Phone) == false)
+                {
+                    string phoneRegEx = @"^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$";
+                    if (Regex.IsMatch(user.Phone, phoneRegEx, RegexOptions.IgnoreCase) == false)
+                        errorMessage = "Please provide valid phone number.";
+                }
+
+                if (user.Password != user.ConfirmPassword)
+                    errorMessage += "<br />Confirm password does not match.";
+
+                if (string.IsNullOrEmpty(user.Name))
+                    errorMessage = "Name is required.";
+            }
+
+            return errorMessage;
+        }
+
         public static List<UserInfo> GetAllUsers(bool isTest = false)
         {
             List<UserInfo> allUsers = new List<UserInfo>();

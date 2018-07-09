@@ -1,4 +1,5 @@
-﻿using _202MobileServiceFour_Model;
+﻿using _202MobileServiceFour_Core;
+using _202MobileServiceFour_Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace _202MobileServiceFour_Web.Controllers
         [HttpPost]
         public ActionResult ClientRegister(UserInfo user)
         {
+            string errorMessage = UserManager.ValidateClient(user);
             return RedirectToAction("OrderApp", new { page = "BusinessInfo" });
         }
 
