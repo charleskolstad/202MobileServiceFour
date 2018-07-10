@@ -130,6 +130,35 @@ namespace _202MobileServiceFour_Test
             Assert.IsTrue(isEmptyString == expected);
         }
 
+        [TestCase("Test@test.com", "Name", 1, "TestUser", "P@ssword1", "P@ssword1", "(763)111-1111", true)]
+        [TestCase("Test@test.com", "", 1, "TestUser", "P@ssword1", "P@ssword1", "(763)111-1111", false)]
+        [TestCase("Test@test.com", "Name", 1, "", "P@ssword1", "P@ssword1", "(763)111-1111", false)]
+        [TestCase("Test@test.com", "Name", 1, "TestUser", "", "P@ssword1", "(763)111-1111", false)]
+        [TestCase("Test@test.com", "Name", 1, "TestUser", "P@", "P@", "(763)111-1111", false)]
+        [TestCase("Test@test.com", "Name", 1, "TestUser", "P@ssword1", "P@ssword2", "(763)111-1111", false)]
+        [TestCase("Test@test.com", "Name", 1, "TestUser", "P@ssword1", "P@ssword1", "invalid", false)]
+        public void InsertClient_ReturnString(string email, string name, int id, string userName, string confirmPassword, string password, string phone, bool expected)
+        {
+            UserInfo user = new UserInfo();
+            user.Email = email;
+            user.UserInfoID = id;
+            user.UserName = userName;
+            user.ConfirmPassword = confirmPassword;
+            user.Name = name;
+            user.Password = password;
+            user.Phone = phone;
+
+            string errorMessage;
+            bool isEmptyString;
+
+            //act
+            UserManager.InsertClient(user, out errorMessage, true);
+            isEmptyString = string.IsNullOrEmpty(errorMessage);
+
+            //assert
+            Assert.IsTrue(isEmptyString == expected);
+        }
+
         [TestCase("Test@test.com", "Name", 1, "TestUser", true, true)]
         [TestCase("Test@test.com", "Name", 1, null, true, false)]
         [TestCase("Test@test.com", "Name", 1, "TestUser", true, true)]

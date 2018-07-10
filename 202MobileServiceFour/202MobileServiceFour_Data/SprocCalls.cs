@@ -27,6 +27,9 @@ namespace _202MobileServiceFour_Data
         {
             DBCommands.PopulateParams("@UserName", user.UserName);
             DBCommands.PopulateParams("@ProfileImage", user.ProfileImage);
+            DBCommands.PopulateParams("@Phone", user.Phone);
+            DBCommands.PopulateParams("@Name", user.Name);
+            DBCommands.PopulateParams("@AddBusiness", user.AddBusiness);
             DBCommands.PopulateParams("@GroupUsers", MapGroupListToTable(user.GroupUsers));
 
             return DBCommands.ExecuteNonQuery("p_UserInfo_Update");

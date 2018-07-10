@@ -84,23 +84,102 @@ namespace _202MobileServiceFour_Core
                 errorMessage = ValidateUser(user);
 
                 if (string.IsNullOrEmpty(errorMessage))
-                {
-                    IMembershipTools membershipTools = AppTools.InitMembershipTools(isTest);
-                    ISprocCalls sprocCalls = AppTools.InitSprocCalls(isTest);
-
-                    if (membershipTools.CreateUser(user.UserName, user.Email) == false ||
-                        sprocCalls.UserInfoUpdate(user) == false)
-                    {
-                        errorMessage = "Error saving user information.";
-                    }
-
-                }
+                    errorMessage = InsertUser(user, isTest);
             }
             catch (Exception ex)
             {
                 DBCommands.RecordError(ex);
                 errorMessage = ex.Message;
             }
+        }
+
+        public static void InsertClient(UserInfo user, out string errorMessage, bool isTest = false)
+        {
+            try
+            {
+                user.GroupUsers = UserManager.GroupsGetAll();
+                user.GroupUsers.Where(g => g.GroupLevel == 0).FirstOrDefault().Active = true;
+                errorMessage = ValidateClient(user);
+
+                if (string.IsNullOrEmpty(errorMessage))
+                    errorMessage = InsertUser(user, isTest);
+            }
+            catch (Exception ex)
+            {
+                DBCommands.RecordError(ex);
+                errorMessage = ex.Message;
+            }
+        }
+
+        private static string InsertUser(UserInfo user, bool isTest)
+        {
+            string errorMessage = string.Empty;
+
+            IMembershipTools membershipTools = AppTools.InitMembershipTools(isTest);
+            ISprocCalls sprocCalls = AppTools.InitSprocCalls(isTest);
+
+            if (membershipTools.CreateUser(user.UserName, user.Email, user.Password) == false ||
+                sprocCalls.UserInfoUpdate(user) == false)
+            {
+                errorMessage = "Error saving user information.";
+            }
+
+            return errorMessage;
+        }
+
+        private static string ValidateUser(UserInfo user)
+        {
+            try
+            {
+                string errorMessage = string.Empty;
+
+                if (string.IsNullOrEmpty(user.Email))
+                    errorMessage += "Email is required. <br />";
+                else
+                {
+                    string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+                    if (Regex.IsMatch(user.Email, emailRegEx, RegexOptions.IgnoreCase) == false)
+                        errorMessage += "Please provide valid email.<br />";
+                }
+
+                if (user.GroupUsers.Count <= 0)
+                    errorMessage += "Error loading user groups. <br />";
+
+                return errorMessage;
+            }
+            catch (Exception ex)
+            {
+                DBCommands.RecordError(ex);
+                return "Error validating user.";
+            }
+        }
+
+        private static string ValidateClient(UserInfo user)
+        {
+            string errorMessage = ValidateUser(user);
+
+            if (string.IsNullOrEmpty(user.Phone) == false)
+            {
+                string phoneRegEx = @"^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$";
+                if (Regex.IsMatch(user.Phone, phoneRegEx, RegexOptions.IgnoreCase) == false)
+                    errorMessage += "Please provide valid phone number.<br />";
+            }
+
+            if (string.IsNullOrEmpty(user.Name))
+                errorMessage += "Name is required.<br />";
+            if (string.IsNullOrEmpty(user.UserName))
+                errorMessage += "User Name is required.<br />";
+            if (string.IsNullOrEmpty(user.Password))
+                errorMessage += "Password is required.<br />";
+            else
+            {
+                if (user.Password.Length < 9)
+                    errorMessage += "Your password needs to be atleast 9 characters long.<br />";
+                else if (user.Password != user.ConfirmPassword)
+                    errorMessage += "Confirm password does not match.<br />";
+            }
+
+            return errorMessage;
         }
 
         public static void UpdateUser(UserInfo user, out string errorMessage, bool isTest = false)
@@ -140,61 +219,6 @@ namespace _202MobileServiceFour_Core
                 DBCommands.RecordError(ex);
                 return false;
             }
-        }
-
-        private static string ValidateUser(UserInfo user)
-        {
-            try
-            {
-                string errorMessage = string.Empty;
-
-                if (string.IsNullOrEmpty(user.Email))
-                    errorMessage += "Email is required. <br />";
-                else
-                {
-                    string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-                    if (Regex.IsMatch(user.Email, emailRegEx, RegexOptions.IgnoreCase) == false)
-                        errorMessage += "Please provide valid email.<br />";
-                }
-
-                if (user.GroupUsers.Count <= 0)
-                    errorMessage += "Error loading user groups. <br />";
-
-                return errorMessage;
-            }
-            catch (Exception ex)
-            {
-                DBCommands.RecordError(ex);
-                return "Error validating user.";
-            }
-        }
-
-        public static string ValidateClient(UserInfo user)
-        {
-            string errorMessage = ValidateUser(user);
-            
-            if (string.IsNullOrEmpty(user.Phone) == false)
-            {
-                string phoneRegEx = @"^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$";
-                if (Regex.IsMatch(user.Phone, phoneRegEx, RegexOptions.IgnoreCase) == false)
-                    errorMessage += "Please provide valid phone number.<br />";
-            }
-
-            if (string.IsNullOrEmpty(user.Name))
-                errorMessage += "Name is required.<br />";
-            if (string.IsNullOrEmpty(user.UserName))
-                errorMessage += "User Name is required.<br />";
-            if (string.IsNullOrEmpty(user.Password))
-                errorMessage += "Password is required.<br />";
-            else
-            {
-                if (user.Password.Length < 9)
-                    errorMessage += "Your password needs to be atleast 9 characters long.<br />";
-                else if (user.Password != user.ConfirmPassword)
-                    errorMessage += "Confirm password does not match.<br />";
-            }
-
-            return errorMessage;
         }
 
         public static List<UserInfo> GetAllUsers(bool isTest = false)

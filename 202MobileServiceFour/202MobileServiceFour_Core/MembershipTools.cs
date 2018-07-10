@@ -10,11 +10,12 @@ namespace _202MobileServiceFour_Core
 {
     internal class MembershipTools : IMembershipTools
     {
-        public bool CreateUser(string userName, string email)
+        public bool CreateUser(string userName, string email, string password = null)
         {
             try
             {
-                Membership.CreateUser(userName, "p@ssword1", email);
+                password = (string.IsNullOrEmpty(password)) ? "p@ssword1" : password;
+                Membership.CreateUser(userName, password, email);
                 return true;
             }
             catch (Exception ex)
@@ -98,7 +99,7 @@ namespace _202MobileServiceFour_Core
 
     internal class FakeMembershipTools : IMembershipTools
     {
-        public bool CreateUser(string userName, string email)
+        public bool CreateUser(string userName, string email, string password = null)
         {
             if (string.IsNullOrEmpty(userName))
                 return false;
@@ -153,7 +154,7 @@ namespace _202MobileServiceFour_Core
         bool SetTempPassword(string userName, string tempPassword);
         bool UpdatePassword(string userName, string password);
         bool UpdateUserEmail(string userName, string email);
-        bool CreateUser(string userName, string email);
+        bool CreateUser(string userName, string email, string password = null);
         bool DeleteUser(string userName);
     }
 }

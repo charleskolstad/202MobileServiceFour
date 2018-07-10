@@ -102,8 +102,8 @@ GO
 CREATE TABLE Business
 (
 	BusinessID INT IDENTITY(1,1) PRIMARY KEY,
-	BusinessName VARCHAR(100) NOT NULL,
-	BusinessEmail VARCHAR(150) NOT NULL,
+	BusinessName VARCHAR(100) NULL,
+	BusinessEmail VARCHAR(150) NULL,
 	BusinessAddress VARCHAR(250) NULL,
 	BusinessHoursStart VARCHAR(10) NULL,
 	BusinessHoursEnd VARCHAR(10) NULL,
@@ -111,12 +111,75 @@ CREATE TABLE Business
 	FacebookUrl VARCHAR(500) NULL,
 	ImageGalleryUrl VARCHAR(500) NULL,
 	Other VARCHAR(5000) NULL,
-	TypeOfBusiness VARCHAR(500) NOT NULL,
+	TypeOfBusiness VARCHAR(500) NULL,
 	AppLink VARCHAR(1500) NULL,
 	IsPublic BIT NULL,
 	AppStatus VARCHAR(200) NULL,
+	UserName NVARCHAR(256) NOT NULL,
 	Active BIT
 )
+GO
+
+CREATE PROCEDURE [dbo].[p_Business_Insert]
+(
+	 @BusinessName varchar(100)
+    ,@BusinessEmail varchar(150)
+    ,@BusinessAddress varchar(250)
+    ,@BusinessHoursStart varchar(10)
+    ,@BusinessHoursEnd varchar(10)
+    ,@WebsiteUrl varchar(500)
+    ,@FacebookUrl varchar(500)
+    ,@ImageGalleryUrl varchar(500)
+    ,@Other varchar(5000)
+    ,@TypeOfBusiness varchar(500)
+    ,@AppLink varchar(1500)
+    ,@IsPublic bit
+	,@UserName NVARCHAR(256)
+    ,@AppStatus varchar(200)
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+    INSERT INTO [dbo].[Business]
+           ([BusinessName]
+           ,[BusinessEmail]
+           ,[BusinessAddress]
+           ,[BusinessHoursStart]
+           ,[BusinessHoursEnd]
+           ,[WebsiteUrl]
+           ,[FacebookUrl]
+           ,[ImageGalleryUrl]
+           ,[Other]
+           ,[TypeOfBusiness]
+           ,[AppLink]
+           ,[IsPublic]
+           ,[AppStatus]
+		   ,[UserName]
+           ,[Active])
+     VALUES
+           (@BusinessName --varchar(100)
+           ,@BusinessEmail --varchar(150)
+           ,@BusinessAddress --varchar(250)
+           ,@BusinessHoursStart --varchar(10)
+           ,@BusinessHoursEnd --varchar(10)
+           ,@WebsiteUrl --varchar(500)
+           ,@FacebookUrl --varchar(500)
+           ,@ImageGalleryUrl --varchar(500)
+           ,@Other --varchar(5000)
+           ,@TypeOfBusiness --varchar(500)
+           ,@AppLink --varchar(1500)
+           ,@IsPublic --bit
+           ,@AppStatus --varchar(200)
+		   ,@UserName --nvarchar(256)
+           ,1)
+
+	EXECUTE [dbo].[p_AppRequest_Insert] @@IDENTITY,NULL
+
+END
+GO
 
 --business users
 --CREATE TABLE BusinessUsers
@@ -137,6 +200,32 @@ CREATE TABLE AppRequest
 	DevStatus VARCHAR(250) NULL,
 	Active BIT NOT NULL
 )
+GO
+
+CREATE PROCEDURE [dbo].[p_AppRequest_Insert]
+(
+	 @BusinessID int
+    ,@DevStatus varchar(250) = NULL
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+	INSERT INTO [dbo].[AppRequest]
+           ([DateRequested]
+           ,[BusinessID]
+           ,[DevStatus]
+           ,[Active])
+     VALUES
+           (GETDATE()
+           ,@BusinessID --int
+           ,@DevStatus --varchar(250)
+           ,1)
+    
+END
+GO
 
 --feature requested
 CREATE TABLE FeatureRequested

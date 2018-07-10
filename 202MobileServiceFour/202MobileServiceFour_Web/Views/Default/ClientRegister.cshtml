@@ -1,56 +1,81 @@
 ﻿@model _202MobileServiceFour_Model.UserInfo
-@using (Html.BeginForm("ClientRegister", "Default", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
 
-    <h3><i class="fa fa-phone" aria-hidden="true"></i> Register</h3><hr>
-    if (ViewBag.ErrorMessage != null)
-    {
-        <span class="text-danger">@Html.Raw(ViewBag.ErrorMessage)</span><hr />
-    }
-
-    <div class="form-group row">
-        <label for="txtYourName" class="col-3 col-form-label">Your Name</label>
-        <div class="col-9">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="txtYourEmail" class="col-3 col-form-label">Email</label>
-        <div class="col-9">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="txtYourPhone" class="col-3 col-form-label">Telephone</label>
-        <div class="col-9">
-            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control text-box single-line phone" } })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="txtYourPhone" class="col-3 col-form-label">User Name</label>
-        <div class="col-9">
-            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="txtYourPhone" class="col-3 col-form-label">Password</label>
-        <div class="col-9">
-            @Html.PasswordFor(model => model.Password, new { @class = "form-control text-box single-line" })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="txtYourPhone" class="col-3 col-form-label">Confirm Password</label>
-        <div class="col-9">
-            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control text-box single-line" })
-        </div>
-    </div>
-
-    <br>
-    <input type="submit" class="btn btn-info pull-right" value="Next" />
+@{
+    ViewBag.Title = "ClientRegister";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="container" >
+    <div class="row my-4">
+        <div class="col-lg-5">
+            <img class="img-fluid rounded" src="http://placehold.it/600x300" alt="">
+        </div>
+        <div class="col-lg-7">
+            <h1>Business Name or Tagline</h1>
+            <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+            <br>
+            <button class="btn btn-outline-info">Sign In</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @using (Html.BeginForm("ClientRegister", "Default", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <h3><i class="fa fa-phone" aria-hidden="true"></i> Register</h3><hr>
+                if (ViewBag.ErrorMessage != null)
+                {
+                    <span class="text-danger">@Html.Raw(ViewBag.ErrorMessage)</span><hr />
+                }
+
+                <div class="form-group row">
+                    <label for="txtYourName" class="col-3 col-form-label">Your Name</label>
+                    <div class="col-9">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtYourEmail" class="col-3 col-form-label">Email</label>
+                    <div class="col-9">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtYourPhone" class="col-3 col-form-label">Telephone</label>
+                    <div class="col-9">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control text-box single-line phone" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtYourPhone" class="col-3 col-form-label">User Name</label>
+                    <div class="col-9">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtYourPhone" class="col-3 col-form-label">Password</label>
+                    <div class="col-9">
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control text-box single-line" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtYourPhone" class="col-3 col-form-label">Confirm Password</label>
+                    <div class="col-9">
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control text-box single-line" })
+                    </div>
+                </div>
+
+                <br>
+                <input type="submit" class="btn btn-info pull-right" value="Next" />
+            }
+        </div>
+    </div>
+</div>
+

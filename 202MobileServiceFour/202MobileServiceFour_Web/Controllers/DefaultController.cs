@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace _202MobileServiceFour_Web.Controllers
 {
@@ -21,14 +22,6 @@ namespace _202MobileServiceFour_Web.Controllers
             return View();
         }
 
-        public ActionResult OrderApp(string page)
-        {
-            ViewData["Page"] = (string.IsNullOrEmpty(page)) ? "ClientRegister" : page;
-            ViewBag.typeList = WebTypeList();
-            ViewBag.ErrorMessage = TempData["errorMessage"];
-            return View();
-        }
-
         public ActionResult ClientRegister()
         {
             return View();
@@ -37,19 +30,27 @@ namespace _202MobileServiceFour_Web.Controllers
         [HttpPost]
         public ActionResult ClientRegister(UserInfo user)
         {
-            user.GroupUsers = UserManager.GroupsGetAll();
-            user.GroupUsers.Where(g => g.GroupLevel == 0).FirstOrDefault().Active = true;
-            string errorMessage = UserManager.ValidateClient(user);
+            Provider provider = new Provider();
+            user.AddBusiness = true;
+            string errorMessage = string.Empty;
+            UserManager.InsertClient(user, out errorMessage);
 
             if (string.IsNullOrEmpty(errorMessage))
-                return RedirectToAction("OrderApp", new { page = "BusinessInfo" });
-            else
             {
-                TempData["errorMessage"] = errorMessage;
-                return RedirectToAction("OrderApp", new { page = "ClientRegister" });
+                if (Membership.ValidateUser(user.UserName, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.UserName, false);
+                    return RedirectToAction("BusinessInfo");
+                }
+                else
+                    errorMessage = "Error validating account.";
             }
+
+            ViewBag.ErrorMessage = errorMessage;
+            return View(user);           
         }
 
+        [Authorize]
         public ActionResult BusinessInfo()
         {
             return View();

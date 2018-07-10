@@ -128,13 +128,12 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\UserProfile.cshtml" />
     <Content Include="Views\Default\BusinessInfo.cshtml" />
-    <Content Include="Views\Default\ClientRegister.cshtml" />
     <Content Include="Views\Default\Features.cshtml" />
-    <Content Include="Views\Default\OrderApp.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\ManageAccount.cshtml" />
     <Content Include="Views\Admin\RecoverPassword.cshtml" />
+    <Content Include="Views\Default\ClientRegister.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

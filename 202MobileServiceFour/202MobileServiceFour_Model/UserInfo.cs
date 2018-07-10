@@ -17,5 +17,6 @@ namespace _202MobileServiceFour_Model
         public string ConfirmPassword { get; set; }
         public string ProfileImage { get; set; }
         public List<UserGroups> GroupUsers { get; set; }
+        public bool AddBusiness { get; set; }
     }
 }
