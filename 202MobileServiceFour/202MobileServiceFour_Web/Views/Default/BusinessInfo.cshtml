@@ -14,7 +14,6 @@
             <h1>Business Name or Tagline</h1>
             <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
             <br>
-            <button class="btn btn-outline-info">Sign In</button>
         </div>
     </div>
 
@@ -23,8 +22,13 @@
             @using (Html.BeginForm("BusinessInfo", "Default", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.BusinessID)
 
                 <h3><i class="fa fa-phone" aria-hidden="true"></i> Register</h3><hr>
+                if (ViewBag.ErrorMessage != null)
+                {
+                    <span class="text-danger">@Html.Raw(ViewBag.ErrorMessage)</span><hr />
+                }
 
                 <div class="form-group row">
                     <label for="txtYourName" class="col-3 col-form-label">Business Name</label>
@@ -65,13 +69,17 @@
                     <label for="txtYourName" class="col-3 col-form-label">Business Hours</label>
 
                     <div class="col-4">
-                        @Html.EditorFor(model => model.BusinessHoursStart, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
+                        @Html.DropDownListFor(model => model.BusinessHoursStart,
+                            new SelectList(new List<string>() { "5am","6am","7am", "8am", "9am","10am","11am", "12pm" }),
+                            "-Select Time-", new { @class = "form-control text-box single-line" })
                     </div>
 
                     <label for="txtBusinessHours" class="col-1 col-form-label">to</label>
 
                     <div class="col-4">
-                        @Html.EditorFor(model => model.BusinessHoursEnd, new { htmlAttributes = new { @class = "form-control text-box single-line" } })
+                        @Html.DropDownListFor(model => model.BusinessHoursEnd,
+                            new SelectList(new List<string>() { "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12am" }),
+                            "-Select Time-", new { @class = "form-control text-box single-line" })
                     </div>
                 </div>
 

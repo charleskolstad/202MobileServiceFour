@@ -85,6 +85,41 @@ namespace _202MobileServiceFour_Data
             return DBCommands.ExecuteNonQuery("p_Feature_Delete");
         }
         #endregion
+
+        #region business
+        public override Business GetBusinessByUser(string userName)
+        {
+            DBCommands.PopulateParams("@UserName", userName);
+
+            return (Business)DBCommands.DataReader("p_Business_GetByUser", DBCommands.ObjectTypes.Business);
+        }
+
+        public override bool BusinessUpdate(Business business)
+        {
+            DBCommands.PopulateParams("@BusinessID", business.BusinessID);
+            DBCommands.PopulateParams("@BusinessName", business.BusinessName);
+            DBCommands.PopulateParams("@BusinessEmail", business.BusinessEmail);
+            DBCommands.PopulateParams("@BusinessAddress", business.BusinessAddress);
+            DBCommands.PopulateParams("@BusinessHoursStart", business.BusinessHoursStart);
+            DBCommands.PopulateParams("@BusinessHoursEnd", business.BusinessHoursEnd);
+            DBCommands.PopulateParams("@WebsiteUrl", business.WebsiteUrl);
+            DBCommands.PopulateParams("@FacebookUrl", business.FacebookUrl);
+            DBCommands.PopulateParams("@ImageGalleryUrl", business.ImageGalleryUrl);
+            DBCommands.PopulateParams("@Other", business.Other);
+            DBCommands.PopulateParams("@TypeOfBusiness", business.TypeOfBusiness);
+            DBCommands.PopulateParams("@AppLink", business.AppLink);
+            DBCommands.PopulateParams("@IsPublic", business.IsPublic);
+            DBCommands.PopulateParams("@AppStatus", business.AppStatus);
+            DBCommands.PopulateParams("@UserName", business.user.Name);
+
+            return DBCommands.ExecuteNonQuery("p_Business_Update");
+        }
+
+        public override DataTable BusinessTypesAll()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 
     public class FakeSprocCalls : ISprocCalls
@@ -228,6 +263,29 @@ namespace _202MobileServiceFour_Data
             return true;
         }
         #endregion
+
+        #region business
+        public override Business GetBusinessByUser(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+                return null;
+
+            return new Business();
+        }
+
+        public override bool BusinessUpdate(Business business)
+        {
+            if (string.IsNullOrEmpty(business.BusinessName))
+                return false;
+
+            return true;
+        }
+
+        public override DataTable BusinessTypesAll()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 
     public abstract class ISprocCalls
@@ -248,6 +306,12 @@ namespace _202MobileServiceFour_Data
         public abstract int FeaturesInsert(Features feature);
         public abstract bool FeaturesUpdate(Features feature);
         public abstract bool FeatureDelete(int featureID);
+        #endregion
+
+        #region business
+        public abstract Business GetBusinessByUser(string userName);
+        public abstract bool BusinessUpdate(Business business);
+        public abstract DataTable BusinessTypesAll();
         #endregion
 
         public DataTable MapGroupListToTable(List<UserGroups> groups)

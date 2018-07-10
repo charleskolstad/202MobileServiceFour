@@ -33,7 +33,7 @@ namespace _202MobileServiceFour_Web.Controllers
             Provider provider = new Provider();
             user.AddBusiness = true;
             string errorMessage = string.Empty;
-            UserManager.InsertClient(user, out errorMessage);
+            //UserManager.InsertClient(user, out errorMessage);
 
             if (string.IsNullOrEmpty(errorMessage))
             {
@@ -50,16 +50,53 @@ namespace _202MobileServiceFour_Web.Controllers
             return View(user);           
         }
 
-        [Authorize]
-        public ActionResult BusinessInfo()
+        public ActionResult ClientLogin()
         {
             return View();
         }
 
         [HttpPost]
+        public ActionResult ClientLogin(LoginModel model)
+        {
+            Provider provider = new Provider();
+
+            if (ModelState.IsValid)
+            {
+                if (Membership.ValidateUser(model.UserName, model.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, false);
+                    return RedirectToAction("BusinessInfo");
+                }
+
+                ModelState.AddModelError("", "Invalid username and password.");
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult BusinessInfo()
+        {
+            ViewBag.typeList = WebTypeList();
+            Business business = BusinessManager.BusinessGetByUser(User.Identity.Name);
+
+            return View(business);
+        }
+
+        [HttpPost]
         public ActionResult BusinessInfo(Business business)
         {
-            return RedirectToAction("OrderApp", new { page = "Features" });
+            string errorMessage = string.Empty;
+            BusinessManager.BusinessUpdate(business, out errorMessage);
+
+            if (string.IsNullOrEmpty(errorMessage))
+                return RedirectToAction("Features");
+            else
+            {
+                ViewBag.ErrorMessage = errorMessage;
+                ViewBag.typeList = WebTypeList();
+                return View(business);
+            }
         }
 
         public ActionResult Features()

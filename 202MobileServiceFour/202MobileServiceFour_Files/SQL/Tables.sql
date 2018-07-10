@@ -181,15 +181,81 @@ BEGIN
 END
 GO
 
---business users
---CREATE TABLE BusinessUsers
---(
---	BusinessUsersID INT IDENTITY(1,1) PRIMARY KEY,
---	ContactName VARCHAR(100) NOT NULL,
---	UserName NVARCHAR(256) NOT NULL,
---	ContactPhone VARCHAR(20) NULL,
---	Active BIT NOT NULL
---)
+CREATE PROCEDURE [dbo].[p_Business_GetByUser]
+(
+	@UserName NVARCHAR(256)
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+    SELECT [BusinessID]
+		  ,[BusinessName]
+		  ,[BusinessEmail]
+		  ,[BusinessAddress]
+		  ,[BusinessHoursStart]
+		  ,[BusinessHoursEnd]
+		  ,[WebsiteUrl]
+		  ,[FacebookUrl]
+		  ,[ImageGalleryUrl]
+		  ,[Other]
+		  ,[TypeOfBusiness]
+		  ,[AppLink]
+		  ,[IsPublic]
+		  ,[AppStatus]
+		  ,[UserName]
+		  ,[Active]
+	  FROM [dbo].[Business]
+	 WHERE [UserName] = @UserName
+
+END
+GO
+
+CREATE PROCEDURE [dbo].[p_Business_Update]
+(
+	 @BusinessID int
+	,@BusinessName varchar(100)
+    ,@BusinessEmail varchar(150)
+    ,@BusinessAddress varchar(250)
+    ,@BusinessHoursStart varchar(10)
+    ,@BusinessHoursEnd varchar(10)
+    ,@WebsiteUrl varchar(500)
+    ,@FacebookUrl varchar(500)
+    ,@ImageGalleryUrl varchar(500)
+    ,@Other varchar(5000)
+    ,@TypeOfBusiness varchar(500)
+    ,@AppLink varchar(1500)
+    ,@IsPublic bit
+    ,@AppStatus varchar(200)
+    ,@UserName nvarchar(256)
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[Business]
+	   SET [BusinessName] = @BusinessName --varchar(100)
+		  ,[BusinessEmail] = @BusinessEmail --varchar(150)
+		  ,[BusinessAddress] = @BusinessAddress --varchar(250)
+		  ,[BusinessHoursStart] = @BusinessHoursStart --varchar(10)
+		  ,[BusinessHoursEnd] = @BusinessHoursEnd --varchar(10)
+		  ,[WebsiteUrl] = @WebsiteUrl --varchar(500)
+		  ,[FacebookUrl] = @FacebookUrl --varchar(500)
+		  ,[ImageGalleryUrl] = @ImageGalleryUrl --varchar(500)
+		  ,[Other] = @Other --varchar(5000)
+		  ,[TypeOfBusiness] = @TypeOfBusiness --varchar(500)
+		  ,[AppLink] = @AppLink --varchar(1500)
+		  ,[IsPublic] = @IsPublic --bit
+		  ,[AppStatus] = @AppStatus --varchar(200)
+		  ,[UserName] = @UserName --nvarchar(256)
+	 WHERE [BusinessID] = @BusinessID
+    
+END
+GO
 
 --app requests
 CREATE TABLE AppRequest
@@ -224,6 +290,31 @@ BEGIN
            ,@DevStatus --varchar(250)
            ,1)
     
+END
+GO
+
+--business type
+CREATE TABLE BusinessType
+(
+	BusinessType INT IDENTITY(1,1) PRIMARY KEY,
+	TypeName VARCHAR(200) NOT NULL,
+	Active BIT
+)
+GO
+
+CREATE PROCEDURE [dbo].[p_BusinessType_GetActive]
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+    SELECT [BusinessType]
+		  ,[TypeName]
+		  ,[Active]
+	  FROM [dbo].[BusinessType]
+	 WHERE [Active] = 1
+
 END
 GO
 

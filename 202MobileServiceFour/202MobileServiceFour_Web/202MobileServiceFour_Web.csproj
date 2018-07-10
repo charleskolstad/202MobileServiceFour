@@ -134,6 +134,7 @@
     <Content Include="Views\Admin\ManageAccount.cshtml" />
     <Content Include="Views\Admin\RecoverPassword.cshtml" />
     <Content Include="Views\Default\ClientRegister.cshtml" />
+    <Content Include="Views\Default\ClientLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

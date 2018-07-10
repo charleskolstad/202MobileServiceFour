@@ -65,6 +65,7 @@
     <Content Include="202html\index.html" />
     <Content Include="202html\ourprojects.html" />
     <Content Include="202html\yourapp.html" />
+    <Content Include="SQL\Membership.sql" />
     <Content Include="SQL\Tables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

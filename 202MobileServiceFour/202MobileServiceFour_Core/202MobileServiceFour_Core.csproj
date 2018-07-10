@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppTools.cs" />
+    <Compile Include="BusinessManager.cs" />
     <Compile Include="EmailTools.cs" />
     <Compile Include="FeatureManager.cs" />
     <Compile Include="MembershipTools.cs" />
