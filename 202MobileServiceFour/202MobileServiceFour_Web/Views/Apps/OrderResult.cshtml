@@ -1,0 +1,41 @@
+﻿@model IEnumerable<_202MobileServiceFour_Model.FeatureRequested>
+
+
+@{
+    ViewBag.Title = "Features";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col-lg-5">
+            <img class="img-fluid rounded" src="http://placehold.it/600x300" alt="">
+        </div>
+        <div class="col-lg-7">
+            <h1>Business Name or Tagline</h1>
+            <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h3 class="display-3"><i class="fa fa-rocket" aria-hidden="true"></i> Congratulations!</h3>
+            <p><stong>Development for you app is underway!</stong></p><hr>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis blanditiis magni debitis consequuntur, repellat sequi vitae voluptatum quas, officia praesentium temporibus, expedita mollitia qui corporis necessitatibus sed iste odio totam.</p>
+            <p>A online application with the following features will be created for you!</p>
+            <div class="row">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    if (Model.ToList()[i].Active)
+                    {
+                        <div class="col-3"><strong>@Model.ToList()[i].RequestedFeature.FeatureName</strong></div>
+                    }
+                }
+            </div>
+            <span>To view the process of your application checkin here </span>
+            <button class="btn btn-outline-info">Sign In</button>
+        </div>
+    </div>
+</div>

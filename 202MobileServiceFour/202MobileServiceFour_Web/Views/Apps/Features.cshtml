@@ -1,0 +1,74 @@
+﻿@model IEnumerable<_202MobileServiceFour_Model.FeatureRequested>
+
+
+@{
+    ViewBag.Title = "Features";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col-lg-5">
+            <img class="img-fluid rounded" src="http://placehold.it/600x300" alt="">
+        </div>
+        <div class="col-lg-7">
+            <h1>Business Name or Tagline</h1>
+            <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h3><i class="fa fa-mobile" aria-hidden="true"></i> Select Your App Features</h3><hr>
+            @using (Html.BeginForm("Features", "Apps", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        if (Model.ToList()[i].RequestedFeature.MainFeature)
+                        {
+                            <div class="col-6">
+                                <label class="custom-control custom-radio">
+                                    @Html.CheckBoxFor(modelItem => Model.ToList()[i].Active, new { @class = "custom-control-input" })
+                                    @Html.HiddenFor(modelItem => Model.ToList()[i].AppRequestID)
+                                    @Html.HiddenFor(modelItem => Model.ToList()[i].FeatureRequestedID)
+                                    @Html.HiddenFor(modelItem => Model.ToList()[i].RequestedFeature.FeatureID)
+                                    @Html.HiddenFor(modelItem => Model.ToList()[i].RequestedFeature.FeatureName)
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">
+                                        <h4>@Model.ToList()[i].RequestedFeature.FeatureName</h4>
+                                        @Model.ToList()[i].RequestedFeature.FeatureDescription
+                                    </span>
+                                </label>
+                            </div>
+                        }
+                    }
+
+                </div><hr />
+                <div class="row">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        if (Model.ToList()[i].RequestedFeature.MainFeature == false)
+                        {
+                            <div class="col-3">
+                                <label class="custom-control custom-checkbox">
+                                    @Html.CheckBoxFor(modelItem => Model.ToList()[i].Active, new { @class = "custom-control-input" })
+                                    @Html.HiddenFor(modelItem => Model.ToList()[i].AppRequestID)
+                                    @Html.HiddenFor(modelItem => Model.ToList()[i].FeatureRequestedID)
+                                    <span class="custom-control-indicator"></span>
+                                    <span class="custom-control-description">@Model.ToList()[i].RequestedFeature.FeatureName</span>
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <br>
+                <input type="submit" class="btn btn-success pull-right" value="Complete" />
+            }
+        </div>
+    </div>
+</div>

@@ -9,20 +9,22 @@ using System.Web.Security;
 
 namespace _202MobileServiceFour_Web.Controllers
 {
+    [Authorize]
     public class AppsController : Controller
     {
+        [AllowAnonymous]
         public ActionResult ClientRegister()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public ActionResult ClientRegister(UserInfo user)
         {
             Provider provider = new Provider();
             user.AddBusiness = true;
             string errorMessage = string.Empty;
-            //UserManager.InsertClient(user, out errorMessage);
+            UserManager.InsertClient(user, out errorMessage);
 
             if (string.IsNullOrEmpty(errorMessage))
             {
@@ -39,12 +41,13 @@ namespace _202MobileServiceFour_Web.Controllers
             return View(user);
         }
 
+        [AllowAnonymous]
         public ActionResult ClientLogin()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public ActionResult ClientLogin(LoginModel model)
         {
             Provider provider = new Provider();
@@ -62,8 +65,7 @@ namespace _202MobileServiceFour_Web.Controllers
 
             return View();
         }
-
-        [Authorize]
+        
         public ActionResult BusinessInfo()
         {
             ViewBag.typeList = WebTypeList();
@@ -101,12 +103,15 @@ namespace _202MobileServiceFour_Web.Controllers
             string errorMessage = string.Empty;
             FeatureManager.RequestFeatureUpdate(features, out errorMessage);
 
-            return View(features);
+            TempData["MyRequests"] = features;
+            return RedirectToAction("OrderResult");
         }
 
         public ActionResult OrderResult()
         {
-            return View();
+            BusinessManager.SendAlertToWorkers();
+            List<FeatureRequested> requestedFeatures = TempData["MyRequests"] as List<FeatureRequested>;
+            return View(requestedFeatures);
         }
 
         private List<string> WebTypeList()

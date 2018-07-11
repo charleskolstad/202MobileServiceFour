@@ -141,6 +141,11 @@ namespace _202MobileServiceFour_Web.Controllers
         {
             return View();
         }
+
+        public ActionResult AppRequests()
+        {
+            return View();
+        }
         #endregion
 
         #region angular methods

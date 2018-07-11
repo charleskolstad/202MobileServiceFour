@@ -28,6 +28,23 @@ namespace _202MobileServiceFour_Core
 
             return allSent;
         }
+
+        public bool SendToGroup(int groupID, string body)
+        {
+            List<UserInfo> allUsers = UserManager.GetAllUsers();
+            bool allSent = true;
+
+            foreach (UserInfo user in allUsers)
+            {
+                if (user.GroupUsers.Where(m => m.UserGroupID == groupID).Any())
+                {
+                    bool result = SendEmail(user.Email, body);
+                    allSent = (allSent) ? result : false;
+                }
+            }
+
+            return allSent;
+        }
     }
 
     internal class FakeEmailTools : IEmailTools
@@ -42,11 +59,17 @@ namespace _202MobileServiceFour_Core
         {
             return true;
         }
+
+        public bool SendToGroup(int groupID, string body)
+        {
+            return true;
+        }
     }
 
     internal interface IEmailTools
     {
         bool SendEmail(string to, string body);
         bool SendToAll(string body);
+        bool SendToGroup(int groupID, string body);
     }
 }

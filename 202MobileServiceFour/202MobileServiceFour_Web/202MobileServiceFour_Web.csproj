@@ -136,6 +136,8 @@
     <Content Include="Views\Admin\RecoverPassword.cshtml" />
     <Content Include="Views\Apps\ClientRegister.cshtml" />
     <Content Include="Views\Apps\ClientLogin.cshtml" />
+    <Content Include="Views\Apps\OrderResult.cshtml" />
+    <Content Include="Views\Admin\AppRequests.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

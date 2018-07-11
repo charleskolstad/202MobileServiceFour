@@ -48,6 +48,20 @@ namespace _202MobileServiceFour_Core
             }
         }
 
+        public static void SendAlertToWorkers(bool isTest = false)
+        {
+            try
+            {
+                IEmailTools emailTools = AppTools.InitEmailTools(isTest);
+                emailTools.SendToGroup(2, "A new request has been sent.");
+                emailTools.SendToGroup(3, "A new request has been sent.");
+            }
+            catch (Exception ex)
+            {
+                DBCommands.RecordError(ex);
+            }
+        }
+
         private static string ValidateBusiness(Business business)
         {
             string errorMessage = string.Empty;
