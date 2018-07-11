@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AppsController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,14 +128,14 @@
     <Content Include="Views\Admin\AllUsers.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\UserProfile.cshtml" />
-    <Content Include="Views\Default\BusinessInfo.cshtml" />
-    <Content Include="Views\Default\Features.cshtml" />
+    <Content Include="Views\Apps\BusinessInfo.cshtml" />
+    <Content Include="Views\Apps\Features.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\ManageAccount.cshtml" />
     <Content Include="Views\Admin\RecoverPassword.cshtml" />
-    <Content Include="Views\Default\ClientRegister.cshtml" />
-    <Content Include="Views\Default\ClientLogin.cshtml" />
+    <Content Include="Views\Apps\ClientRegister.cshtml" />
+    <Content Include="Views\Apps\ClientLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -152,7 +153,9 @@
       <Name>202MobileServiceFour_Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Default\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

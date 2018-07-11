@@ -98,6 +98,27 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[p_Feature_GetByID]
+(
+	@FeatureID int
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+    SELECT [FeatureID]
+		  ,[FeatureName]
+		  ,[MainFeature]
+		  ,[FeatureDescription]
+		  ,[Active]
+	  FROM [dbo].[Feature]
+	 WHERE [FeatureID] = @FeatureID
+
+END
+GO
+
 --business
 CREATE TABLE Business
 (
@@ -217,18 +238,18 @@ CREATE PROCEDURE [dbo].[p_Business_Update]
 (
 	 @BusinessID int
 	,@BusinessName varchar(100)
-    ,@BusinessEmail varchar(150)
-    ,@BusinessAddress varchar(250)
-    ,@BusinessHoursStart varchar(10)
-    ,@BusinessHoursEnd varchar(10)
-    ,@WebsiteUrl varchar(500)
-    ,@FacebookUrl varchar(500)
-    ,@ImageGalleryUrl varchar(500)
-    ,@Other varchar(5000)
-    ,@TypeOfBusiness varchar(500)
-    ,@AppLink varchar(1500)
+    ,@BusinessEmail varchar(150) = NULL
+    ,@BusinessAddress varchar(250) = NULL
+    ,@BusinessHoursStart varchar(10) = NULL
+    ,@BusinessHoursEnd varchar(10) = NULL
+    ,@WebsiteUrl varchar(500) = NULL
+    ,@FacebookUrl varchar(500) = NULL
+    ,@ImageGalleryUrl varchar(500) = NULL
+    ,@Other varchar(5000) = NULL
+    ,@TypeOfBusiness varchar(500) = NULL
+    ,@AppLink varchar(1500) = NULL
     ,@IsPublic bit
-    ,@AppStatus varchar(200)
+    ,@AppStatus varchar(200) = NULL
     ,@UserName nvarchar(256)
 )
 AS
@@ -238,19 +259,19 @@ BEGIN
 	SET NOCOUNT ON;
 
 	UPDATE [dbo].[Business]
-	   SET [BusinessName] = @BusinessName --varchar(100)
-		  ,[BusinessEmail] = @BusinessEmail --varchar(150)
-		  ,[BusinessAddress] = @BusinessAddress --varchar(250)
-		  ,[BusinessHoursStart] = @BusinessHoursStart --varchar(10)
-		  ,[BusinessHoursEnd] = @BusinessHoursEnd --varchar(10)
-		  ,[WebsiteUrl] = @WebsiteUrl --varchar(500)
-		  ,[FacebookUrl] = @FacebookUrl --varchar(500)
-		  ,[ImageGalleryUrl] = @ImageGalleryUrl --varchar(500)
-		  ,[Other] = @Other --varchar(5000)
-		  ,[TypeOfBusiness] = @TypeOfBusiness --varchar(500)
-		  ,[AppLink] = @AppLink --varchar(1500)
+	   SET [BusinessName] = COALESCE(@BusinessName, [BusinessName]) --varchar(100)
+		  ,[BusinessEmail] = COALESCE(@BusinessEmail, [BusinessEmail]) --varchar(150)
+		  ,[BusinessAddress] = COALESCE(@BusinessAddress, [BusinessAddress]) --varchar(250)
+		  ,[BusinessHoursStart] = COALESCE(@BusinessHoursStart, [BusinessHoursStart]) --varchar(10)
+		  ,[BusinessHoursEnd] = COALESCE(@BusinessHoursEnd, [BusinessHoursEnd]) --varchar(10)
+		  ,[WebsiteUrl] = COALESCE(@WebsiteUrl,[WebsiteUrl]) --varchar(500)
+		  ,[FacebookUrl] = COALESCE(@FacebookUrl, [FacebookUrl]) --varchar(500)
+		  ,[ImageGalleryUrl] = COALESCE(@ImageGalleryUrl, [ImageGalleryUrl]) --varchar(500)
+		  ,[Other] = COALESCE(@Other, [Other]) --varchar(5000)
+		  ,[TypeOfBusiness] = COALESCE(@TypeOfBusiness, [TypeOfBusiness]) --varchar(500)
+		  ,[AppLink] = COALESCE(@AppLink, [AppLink]) --varchar(1500)
 		  ,[IsPublic] = @IsPublic --bit
-		  ,[AppStatus] = @AppStatus --varchar(200)
+		  ,[AppStatus] = COALESCE(@AppStatus, [AppStatus]) --varchar(200)
 		  ,[UserName] = @UserName --nvarchar(256)
 	 WHERE [BusinessID] = @BusinessID
     
@@ -290,6 +311,21 @@ BEGIN
            ,@DevStatus --varchar(250)
            ,1)
     
+	INSERT INTO [dbo].[FeatureRequested]
+           ([AppRequestID]
+           ,[FeatureID]
+           ,[DateRequested]
+           ,[DevStatus]
+           ,[AssignedTo]
+           ,[Active])
+	SELECT @@IDENTITY
+		  ,[FeatureID]
+		  ,NULL
+		  ,NULL
+		  ,NULL
+		  ,0
+	  FROM [dbo].[Feature]
+    
 END
 GO
 
@@ -322,12 +358,67 @@ GO
 CREATE TABLE FeatureRequested
 (
 	FeatureRequestedID INT IDENTITY(1,1) PRIMARY KEY,
-	AppRequestID INT,
-	DateRequested DATE NOT NULL,
+	AppRequestID INT NOT NULL,
+	FeatureID INT NOT NULL,
+	DateRequested DATE NULL,
 	DevStatus VARCHAR(250) NULL,
 	AssignedTo NVARCHAR(256) NULL,
 	Active BIT NOT NULL
 )
+GO
+
+CREATE PROCEDURE [dbo].[p_FeatureRequested_GetByBusinessID]
+(
+	@BusinessID int
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+	SELECT [FeatureRequested].[FeatureRequestedID]
+		  ,[FeatureRequested].[AppRequestID]
+		  ,[FeatureRequested].[FeatureID]
+		  ,[FeatureRequested].[DateRequested]
+		  ,[FeatureRequested].[DevStatus]
+		  ,[FeatureRequested].[AssignedTo]
+		  ,[FeatureRequested].[Active]
+	  FROM [dbo].[FeatureRequested]
+	INNER JOIN [dbo].[AppRequest] ON
+	[FeatureRequested].[AppRequestID] = [AppRequest].[AppRequestID]
+	WHERE [AppRequest].[BusinessID] = @BusinessID
+    
+END
+GO
+
+CREATE PROCEDURE [dbo].[p_FeatureRequested_Update]
+(
+	 @FeatureRequestedID int
+	,@AppRequestID int
+	,@FeatureID int
+	,@DateRequested date = NULL
+	,@DevStatus varchar(250) = NULL
+	,@AssignedTo nvarchar(256) = NULL
+	,@Active bit = NULL
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[FeatureRequested]
+	   SET [AppRequestID] = @AppRequestID --int
+		  ,[FeatureID] = @FeatureID --int
+		  ,[DateRequested] = COALESCE(@DateRequested, [DateRequested]) --date
+		  ,[DevStatus] = COALESCE(@DevStatus, [DevStatus]) --varchar(250)
+		  ,[AssignedTo] = COALESCE(@AssignedTo, [AssignedTo]) --nvarchar(256)
+		  ,[Active] = COALESCE(@Active, [Active]) --bit
+	 WHERE [FeatureRequestedID] = @FeatureRequestedID
+    
+END
+GO
 
 --error log
 CREATE TABLE [dbo].[ErrorLog](

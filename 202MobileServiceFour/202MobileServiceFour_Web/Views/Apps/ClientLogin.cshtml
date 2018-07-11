@@ -19,12 +19,12 @@
 
     <div class="row">
         <div class="col-12">
-            @using (Html.BeginForm("ClientLogin", "Default", FormMethod.Post))
+            @using (Html.BeginForm("ClientLogin", "Apps", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(false)
 
-                <h3><i class="fa fa-phone" aria-hidden="true"></i> Register</h3><hr>
+                <h3><i class="fa fa-hourglass-half" aria-hidden="true"></i> Login</h3><hr>
 
                 <div class="form-group row">
                     <label for="txtYourName" class="col-3 col-form-label">User Name</label>

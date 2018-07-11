@@ -65,7 +65,7 @@ namespace _202MobileServiceFour_Core
 
             if (user != null)
             {
-                if (HttpContext.Current.Request.Path != "/Admin/ManageAccount")
+                if (HttpContext.Current.Request.Path != "/Admin/ManageAccount" && HttpContext.Current.Request.Path != "/Apps/ClientRegister")
                 {
                     if (user.LastPasswordChangedDate == user.CreationDate || user.LastPasswordChangedDate < DateTime.Now.AddMonths(-1))
                         HttpContext.Current.Response.Redirect("~/Admin/ManageAccount", false);

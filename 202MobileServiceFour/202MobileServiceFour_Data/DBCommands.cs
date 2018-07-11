@@ -161,7 +161,8 @@ namespace _202MobileServiceFour_Data
         internal enum ObjectTypes
         {
             UserInfo,
-            Business
+            Business,
+            Features
         }
 
         static object ObjectFactory(ObjectTypes objectType)
@@ -173,6 +174,10 @@ namespace _202MobileServiceFour_Data
             else if (objectType == ObjectTypes.Business)
             {
                 return new Business();
+            }
+            else if (objectType == ObjectTypes.Features)
+            {
+                return new Features();
             }
             //else if (objectType == ObjectTypes.Player)
             //{

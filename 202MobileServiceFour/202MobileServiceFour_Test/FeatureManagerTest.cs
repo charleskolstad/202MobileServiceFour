@@ -63,5 +63,44 @@ namespace _202MobileServiceFour_Test
 
             Assert.IsTrue(isEmptyString == expected);
         }
+
+        [TestCase(1, true)]
+        [TestCase(0, false)]
+        public void FeatureGetByID_ReturnFeature(int id, bool expected)
+        {
+            int featureID = id;
+            Features feature = null;
+            bool notNullFeatures = false;
+
+            feature = FeatureManager.FeatureGetByID(featureID, true);
+            notNullFeatures = (feature != null);
+
+            Assert.IsTrue(notNullFeatures == expected);
+        }
+
+        [TestCase(1, true)]
+        [TestCase(0, false)]
+        public void RequestedFeaturesByBusiness_ReturnList(int id, bool expected)
+        {
+            List<FeatureRequested> features = new List<FeatureRequested>();
+            bool notEmptyList = false;
+
+            features = FeatureManager.RequestedFeaturesByBusiness(id, true);
+            notEmptyList = (features.Count > 0);
+
+            Assert.IsTrue(notEmptyList == expected);
+        }
+
+        [Test]
+        public void RequestFeatureUpdate_ReturnString()
+        {
+            List<FeatureRequested> features = new List<FeatureRequested>();
+            features.Add(new FeatureRequested() { Active = true, AppRequestID = 1, AssignedTo = null, DateRequested = null, DevStatus = "", FeatureRequestedID = 1, RequestedFeature = new Features() });
+            string errorMessage;
+
+            FeatureManager.RequestFeatureUpdate(features, out errorMessage, true);
+
+            Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+        }
     }
 }

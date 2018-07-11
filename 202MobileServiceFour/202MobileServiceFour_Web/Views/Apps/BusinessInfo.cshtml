@@ -19,12 +19,12 @@
 
     <div class="row">
         <div class="col-12">
-            @using (Html.BeginForm("BusinessInfo", "Default", FormMethod.Post))
+            @using (Html.BeginForm("BusinessInfo", "Apps", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.BusinessID)
 
-                <h3><i class="fa fa-phone" aria-hidden="true"></i> Register</h3><hr>
+                <h3><i class="fa fa-home" aria-hidden="true"></i> Business Information</h3><hr>
                 if (ViewBag.ErrorMessage != null)
                 {
                     <span class="text-danger">@Html.Raw(ViewBag.ErrorMessage)</span><hr />

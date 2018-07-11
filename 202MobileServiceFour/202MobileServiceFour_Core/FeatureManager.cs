@@ -105,6 +105,23 @@ namespace _202MobileServiceFour_Core
             }
         }
 
+        public static Features FeatureGetByID(int featureID, bool IsUnitTest = false)
+        {
+            Features feature = null;
+
+            try
+            {
+                ISprocCalls sprocCalls = AppTools.InitSprocCalls(IsUnitTest);
+                feature = sprocCalls.FeatureGetByID(featureID);
+            }
+            catch (Exception ex)
+            {
+                DBCommands.RecordError(ex);
+            }
+
+            return feature;
+        }
+
         private static string ValidateFeature(Features feature)
         {
             string errorMessage = string.Empty;
@@ -113,6 +130,59 @@ namespace _202MobileServiceFour_Core
                 errorMessage += "Feature name is required.<br />";
 
             return errorMessage;
+        }
+
+        public static List<FeatureRequested> RequestedFeaturesByBusiness(int businessID, bool isUnitTest = false)
+        {
+            List<FeatureRequested> features = new List<FeatureRequested>();
+
+            try
+            {
+                ISprocCalls sprocCalls = AppTools.InitSprocCalls(isUnitTest);
+                DataTable featureTable = sprocCalls.BusinessRequestedFeature(businessID);
+                FeatureRequested requestFeature;
+
+                foreach (DataRow row in featureTable.Rows)
+                {
+                    requestFeature = new FeatureRequested();
+                    requestFeature.Active = Convert.ToBoolean(row["Active"]);
+                    requestFeature.AppRequestID = Convert.ToInt32(row["AppRequestID"]);
+                    requestFeature.AssignedTo = (row["AssignedTo"] != DBNull.Value) ? UserManager.GetUserByName(row["AssignedTo"].ToString()) : null;
+                    requestFeature.DateRequested = (row["DateRequested"] != DBNull.Value) ? Convert.ToDateTime(row["DateRequested"]) : (DateTime?)null;
+                    requestFeature.DevStatus = (row["DevStatus"] != DBNull.Value) ? row["DevStatus"].ToString() : "";
+                    requestFeature.FeatureRequestedID = Convert.ToInt32(row["FeatureRequestedID"]);
+                    requestFeature.RequestedFeature = FeatureGetByID(Convert.ToInt32(row["FeatureID"]));
+
+                    features.Add(requestFeature);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                DBCommands.RecordError(ex);
+            }
+
+            return features;
+        }
+
+        public static void RequestFeatureUpdate(List<FeatureRequested> features, out string errorMessage, bool isUnitTest = false)
+        {
+            try
+            {
+                errorMessage = string.Empty;
+                ISprocCalls sprocCalls = AppTools.InitSprocCalls(isUnitTest);
+
+                foreach (FeatureRequested request in features)
+                {
+                    if (sprocCalls.RequestedFeatureUpdate(request) == false)
+                        errorMessage = "Error gathering all features";
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                DBCommands.RecordError(ex);
+            }
         }
     }
 }

@@ -84,6 +84,13 @@ namespace _202MobileServiceFour_Data
 
             return DBCommands.ExecuteNonQuery("p_Feature_Delete");
         }
+
+        public override Features FeatureGetByID(int featureID)
+        {
+            DBCommands.PopulateParams("@FeatureID", featureID);
+
+            return (Features)DBCommands.DataReader("p_Feature_GetByID", DBCommands.ObjectTypes.Features);
+        }
         #endregion
 
         #region business
@@ -110,7 +117,7 @@ namespace _202MobileServiceFour_Data
             DBCommands.PopulateParams("@AppLink", business.AppLink);
             DBCommands.PopulateParams("@IsPublic", business.IsPublic);
             DBCommands.PopulateParams("@AppStatus", business.AppStatus);
-            DBCommands.PopulateParams("@UserName", business.user.Name);
+            DBCommands.PopulateParams("@UserName", business.user.UserName);
 
             return DBCommands.ExecuteNonQuery("p_Business_Update");
         }
@@ -118,6 +125,30 @@ namespace _202MobileServiceFour_Data
         public override DataTable BusinessTypesAll()
         {
             throw new NotImplementedException();
+        }
+        #endregion
+
+        #region requested feature
+
+
+        public override DataTable BusinessRequestedFeature(int businessID)
+        {
+            DBCommands.PopulateParams("@BusinessID", businessID);
+
+            return DBCommands.AdapterFill("p_FeatureRequested_GetByBusinessID");
+        }
+
+        public override bool RequestedFeatureUpdate(FeatureRequested feature)
+        {
+            DBCommands.PopulateParams("@FeatureRequestedID", feature.FeatureRequestedID);
+            DBCommands.PopulateParams("@AppRequestID", feature.AppRequestID);
+            DBCommands.PopulateParams("@FeatureID", feature.RequestedFeature.FeatureID);
+            DBCommands.PopulateParams("@DateRequested", feature.DateRequested);
+            DBCommands.PopulateParams("@DevStatus", feature.DevStatus);
+            DBCommands.PopulateParams("@AssignedTo", feature.AssignedTo);
+            DBCommands.PopulateParams("@Active", feature.Active);
+
+            return DBCommands.ExecuteNonQuery("p_FeatureRequested_Update");
         }
         #endregion
     }
@@ -262,6 +293,14 @@ namespace _202MobileServiceFour_Data
 
             return true;
         }
+
+        public override Features FeatureGetByID(int featureID)
+        {
+            if (featureID <= 0)
+                return null;
+
+            return new Features();
+        }
         #endregion
 
         #region business
@@ -286,6 +325,43 @@ namespace _202MobileServiceFour_Data
             throw new NotImplementedException();
         }
         #endregion
+
+        #region requested features
+        public override DataTable BusinessRequestedFeature(int businessID)
+        {
+            DataTable requestedFeatures = new DataTable();
+            requestedFeatures.Columns.Add("FeatureRequestedID");
+            requestedFeatures.Columns.Add("AppRequestID");
+            requestedFeatures.Columns.Add("FeatureID");
+            requestedFeatures.Columns.Add("DateRequested");
+            requestedFeatures.Columns.Add("DevStatus");
+            requestedFeatures.Columns.Add("AssignedTo");
+            requestedFeatures.Columns.Add("Active");
+
+            if (businessID > 0)
+            {
+                DataRow row = requestedFeatures.NewRow();
+                row["FeatureRequestedID"] = 1;
+                row["AppRequestID"] = 1;
+                row["FeatureID"] = 1;
+                row["DateRequested"] = DateTime.Now;
+                row["DevStatus"] = "";
+                row["AssignedTo"] = "cpkolsta";
+                row["Active"] = true;
+                requestedFeatures.Rows.Add(row);
+            }
+
+            return requestedFeatures;
+        }
+
+        public override bool RequestedFeatureUpdate(FeatureRequested feature)
+        {
+            if (feature.AppRequestID <= 0)
+                return false;
+
+            return true;
+        }
+        #endregion
     }
 
     public abstract class ISprocCalls
@@ -306,12 +382,18 @@ namespace _202MobileServiceFour_Data
         public abstract int FeaturesInsert(Features feature);
         public abstract bool FeaturesUpdate(Features feature);
         public abstract bool FeatureDelete(int featureID);
+        public abstract Features FeatureGetByID(int featureID);
         #endregion
 
         #region business
         public abstract Business GetBusinessByUser(string userName);
         public abstract bool BusinessUpdate(Business business);
         public abstract DataTable BusinessTypesAll();
+        #endregion
+
+        #region requested features
+        public abstract DataTable BusinessRequestedFeature(int businessID);
+        public abstract bool RequestedFeatureUpdate(FeatureRequested feature);
         #endregion
 
         public DataTable MapGroupListToTable(List<UserGroups> groups)
