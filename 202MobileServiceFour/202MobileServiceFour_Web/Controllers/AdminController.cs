@@ -241,6 +241,20 @@ namespace _202MobileServiceFour_Web.Controllers
 
             return errorMessage;
         }
+
+        public string AppRequestSave(AppRequest request)
+        {
+            string errorMessage = string.Empty;
+
+            AppRequestManager.AppRequestUpdate(request, out errorMessage);
+            return errorMessage;
+        }
+
+        public JsonResult AppRequestGetAll()
+        {
+            List<AppRequest> requests = AppRequestManager.AppRequestsGetAll();
+            return Json(requests, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

@@ -3,7 +3,7 @@ body {
 }
 
 .hero-image{
-    height: 45vh;
+    min-height: 45vh;
     padding-top: 10%;
     background: 
     linear-gradient(

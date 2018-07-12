@@ -5,7 +5,9 @@
         templateUrl: "/Admin/UserProfile"
     }).when("/allFeatures", {
         templateUrl: "/Admin/AllFeatures"
+    }).when("/allRequests", {
+        templateUrl: "/Admin/AppRequests"
     }).otherwise({
-
+        
     });
 }).constant("dataUrl", "http://localhost:61856/");

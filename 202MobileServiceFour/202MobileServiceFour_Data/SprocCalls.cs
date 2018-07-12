@@ -97,8 +97,37 @@ namespace _202MobileServiceFour_Data
         public override Business GetBusinessByUser(string userName)
         {
             DBCommands.PopulateParams("@UserName", userName);
+            DataTable businessTable = DBCommands.AdapterFill("p_Business_GetByUser");
+            Business business = new Business();
 
-            return (Business)DBCommands.DataReader("p_Business_GetByUser", DBCommands.ObjectTypes.Business);
+            try
+            {
+                foreach (DataRow row in businessTable.Rows)
+                {
+                    business.AppLink = (row["AppLink"] != DBNull.Value) ? row["AppLink"].ToString() : "";
+                    business.AppStatus = (row["AppStatus"] != DBNull.Value) ? row["AppStatus"].ToString() : "";
+                    business.BusinessAddress = (row["BusinessAddress"] != DBNull.Value) ? row["BusinessAddress"].ToString() : "";
+                    business.BusinessEmail = (row["BusinessEmail"] != DBNull.Value) ? row["BusinessEmail"].ToString() : "";
+                    business.BusinessHoursEnd = (row["BusinessHoursEnd"] != DBNull.Value) ? row["BusinessHoursEnd"].ToString() : "";
+                    business.BusinessHoursStart = (row["BusinessHoursStart"] != DBNull.Value) ? row["BusinessHoursStart"].ToString() : "";
+                    business.BusinessID = Convert.ToInt32(row["BusinessID"]);
+                    business.BusinessName = (row["BusinessName"] != DBNull.Value) ? row["BusinessName"].ToString() : "";
+                    business.BusinessPhone = (row["BusinessPhone"] != DBNull.Value) ? row["BusinessPhone"].ToString() : "";
+                    business.FacebookUrl = (row["FacebookUrl"] != DBNull.Value) ? row["FacebokUrl"].ToString() : "";
+                    business.ImageGalleryUrl = (row["ImageGalleryUrl"] != DBNull.Value) ? row["ImageGalleryUrl"].ToString() : "";
+                    business.IsPublic = Convert.ToBoolean(row["IsPublic"] != DBNull.Value) ? Convert.ToBoolean(row["IsPublic"]) : false;
+                    business.Other = (row["Other"] != DBNull.Value) ? row["Other"].ToString() : "";
+                    business.TypeOfBusiness = (row["TypeOfBusiness"] != DBNull.Value) ? row["TypeOfBusiness"].ToString() : "";
+                    business.user = UserInfoGetByUser(row["UserName"].ToString());
+                    business.WebsiteUrl = (row["WebsiteUrl"] != DBNull.Value) ? row["WebsiteUrl"].ToString() : "";
+                }
+            }
+            catch (Exception ex)
+            {
+                DBCommands.RecordError(ex);
+            }
+
+            return business;
         }
 
         public override bool BusinessUpdate(Business business)
@@ -126,6 +155,42 @@ namespace _202MobileServiceFour_Data
         {
             throw new NotImplementedException();
         }
+
+        public override Business GetBusinessByID(int id)
+        {
+            DBCommands.PopulateParams("@BusinessID", id);
+            DataTable businessTable = DBCommands.AdapterFill("p_Business_GetByID");
+            Business business = new Business();
+
+            try
+            {
+                foreach (DataRow row in businessTable.Rows)
+                {
+                    business.AppLink = (row["AppLink"] != DBNull.Value) ? row["AppLink"].ToString() : "";
+                    business.AppStatus = (row["AppStatus"] != DBNull.Value) ? row["AppStatus"].ToString() : "";
+                    business.BusinessAddress = (row["BusinessAddress"] != DBNull.Value) ? row["BusinessAddress"].ToString() : "";
+                    business.BusinessEmail = (row["BusinessEmail"] != DBNull.Value) ? row["BusinessEmail"].ToString() : "";
+                    business.BusinessHoursEnd = (row["BusinessHoursEnd"] != DBNull.Value) ? row["BusinessHoursEnd"].ToString() : "";
+                    business.BusinessHoursStart = (row["BusinessHoursStart"] != DBNull.Value) ? row["BusinessHoursStart"].ToString() : "";
+                    business.BusinessID = Convert.ToInt32(row["BusinessID"]);
+                    business.BusinessName = (row["BusinessName"] != DBNull.Value) ? row["BusinessName"].ToString() : "";
+                    business.BusinessPhone = (row["BusinessPhone"] != DBNull.Value) ? row["BusinessPhone"].ToString() : "";
+                    business.FacebookUrl = (row["FacebookUrl"] != DBNull.Value) ? row["FacebokUrl"].ToString() : "";
+                    business.ImageGalleryUrl = (row["ImageGalleryUrl"] != DBNull.Value) ? row["ImageGalleryUrl"].ToString() : "";
+                    business.IsPublic = Convert.ToBoolean(row["IsPublic"] != DBNull.Value) ? Convert.ToBoolean(row["IsPublic"]) : false;
+                    business.Other = (row["Other"] != DBNull.Value) ? row["Other"].ToString() : "";
+                    business.TypeOfBusiness = (row["TypeOfBusiness"] != DBNull.Value) ? row["TypeOfBusiness"].ToString() : "";
+                    business.user = UserInfoGetByUser(row["UserName"].ToString());
+                    business.WebsiteUrl = (row["WebsiteUrl"] != DBNull.Value) ? row["WebsiteUrl"].ToString() : "";
+                }
+            }
+            catch (Exception ex)
+            {
+                DBCommands.RecordError(ex);
+            }
+
+            return business;
+        }
         #endregion
 
         #region requested feature
@@ -149,6 +214,23 @@ namespace _202MobileServiceFour_Data
             DBCommands.PopulateParams("@Active", feature.Active);
 
             return DBCommands.ExecuteNonQuery("p_FeatureRequested_Update");
+        }
+        #endregion
+
+        #region app requests
+        public override DataTable AppRequestsGetAll()
+        {
+            return DBCommands.AdapterFill("p_AppRequests_GetActive");
+        }
+
+        public override bool AppRequestUpdate(AppRequest request)
+        {
+            DBCommands.PopulateParams("@AppRequestID", request.AppRequestID);
+            DBCommands.PopulateParams("@DateRequested", request.DateRequested);
+            DBCommands.PopulateParams("@BusinessID", request.AppBusiness.BusinessID);
+            DBCommands.PopulateParams("@DevStatus", request.DevStatus);
+
+            return DBCommands.ExecuteNonQuery("p_AppRequest_Update");
         }
         #endregion
     }
@@ -324,6 +406,14 @@ namespace _202MobileServiceFour_Data
         {
             throw new NotImplementedException();
         }
+
+        public override Business GetBusinessByID(int id)
+        {
+            if (id <= 0)
+                return null;
+
+            return new Business();
+        }
         #endregion
 
         #region requested features
@@ -362,6 +452,36 @@ namespace _202MobileServiceFour_Data
             return true;
         }
         #endregion
+
+        #region app requests
+        public override DataTable AppRequestsGetAll()
+        {
+            DataTable appRequests = new DataTable();
+            appRequests.Columns.Add("AppRequestID");
+            appRequests.Columns.Add("DateRequested");
+            appRequests.Columns.Add("BusinessID");
+            appRequests.Columns.Add("DevStatus");
+            appRequests.Columns.Add("Active");
+
+            DataRow row = appRequests.NewRow();
+            row["AppRequestID"] = 1;
+            row["DateRequested"] = DateTime.Now;
+            row["BusinessID"] = 1;
+            row["DevStatus"] = "status";
+            row["Active"] = true;
+            appRequests.Rows.Add(row);
+
+            return appRequests;
+        }
+
+        public override bool AppRequestUpdate(AppRequest request)
+        {
+            if (string.IsNullOrEmpty(request.DevStatus))
+                return false;
+
+            return true;
+        }
+        #endregion
     }
 
     public abstract class ISprocCalls
@@ -389,11 +509,18 @@ namespace _202MobileServiceFour_Data
         public abstract Business GetBusinessByUser(string userName);
         public abstract bool BusinessUpdate(Business business);
         public abstract DataTable BusinessTypesAll();
+        public abstract Business GetBusinessByID(int id);
         #endregion
 
         #region requested features
         public abstract DataTable BusinessRequestedFeature(int businessID);
         public abstract bool RequestedFeatureUpdate(FeatureRequested feature);
+        #endregion
+
+        #region app requests
+        public abstract DataTable AppRequestsGetAll();
+
+        public abstract bool AppRequestUpdate(AppRequest request);
         #endregion
 
         public DataTable MapGroupListToTable(List<UserGroups> groups)

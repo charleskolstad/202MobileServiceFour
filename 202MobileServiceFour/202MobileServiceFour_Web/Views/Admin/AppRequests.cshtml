@@ -1,1 +1,104 @@
-﻿
+﻿@{
+    Layout = null;
+}
+
+
+<div ng-controller="AppRequestCtrl">
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Business</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Date Reqeusted</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in data.AppRequest">
+                        <th scope="row">{{item.AppBusiness.BusinessName}}</th>
+                        <td>{{item.AppBusiness.user.Name}}</td>
+                        <td>{{item.DateRequested.slice(6, -2) | date:'dd/MM/yyyy'}}</td>
+                        <td>
+                            <button class="btn btn-info" ng-click="SetupAppRequest(item)">View</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+
+    <div class="modal fade" id="modelAppRequest" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <div ng-show="ShowPage(1)">
+                       <button class="btn btn-warning" ng-click="ChangePage(2)">View requests</button>
+                       <div class="row">
+                           <div class="col-6">
+                               <p>Business Name - {{AppRequest.AppBusiness.BusinessName}}</p>
+                               <p>Business Email - {{AppRequest.AppBusiness.BusinessEmail}}</p>
+                               <p>Business Phone - {{AppRequest.AppBusiness.BusinessPhone}}</p>
+                               <p>Business Address - {{AppRequest.AppBusiness.BusinessAddress}}</p>
+                               <p>Business Hours - {{AppRequest.AppBusiness.BusinessHoursStart}} - {{AppRequest.AppBusiness.BusinessHoursEnd}}</p>
+                           </div>
+                           <div class="col-6">
+                               <p>Website URL - {{AppRequest.AppBusiness.WebsiteUrl}}</p>
+                               <p>Facebook URL - {{AppRequest.AppBusiness.FacebookUrl}}</p>
+                               <p>Image Gallery URL - {{AppRequest.AppBusiness.ImageGalleryUrl}}</p>
+                           </div>
+                           <div class="col-12">
+                               <label for="">Other: </label>
+                               <p>{{AppRequest.AppBusiness.Other}}</p>
+                           </div>
+                       </div>
+                       <hr />
+                       <button class="btn btn-success pull-right" ng-click="SaveAppRequest(AppRequest)">Save</button>
+                   </div>
+                   <div ng-show="ShowPage(2)">
+                       <table class="table table-striped">
+                           <thead>
+                               <tr>
+                                   <th scope="col">Feature Name</th>
+                                   <th scope="col">Date Requested</th>
+                                   <th scope="col">Assigned To</th>
+                                   <th scope="col">Status</th>
+                                   <th scope="col"></th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr ng-repeat="feature in AppRequest.RequestedFeatures">
+                                   <th scope="row">{{feature.Features.FeatureName}}</th>
+                                   <td>{{feature.DateRequested.slice(6, -2) | date:'dd/MM/yyyy'}}</td>
+                                   <td>
+                                       <select class="form-control" ng-model="feature.AssignedTo.UserName">
+                                           <option></option>
+                                           <option ng-repeat="user in data.Users">{{user.UserName}}</option>
+                                       </select>
+                                   </td>
+                                   <td>
+                                       <select class="form-control" ng-model="feature.DevStatus">
+                                           <option>New</option>
+                                           <option>In Progress</option>
+                                           <option>Complete</option>
+                                       </select>
+                                   </td>
+                                   <td><button class="btn btn-success" ng-click="UpdateFeature(feature)">Update</button></td>
+                               </tr>
+                           </tbody>
+                       </table>                       
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

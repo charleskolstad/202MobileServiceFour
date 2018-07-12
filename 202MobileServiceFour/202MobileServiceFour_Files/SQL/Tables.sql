@@ -278,6 +278,38 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[p_Business_GetByID]
+(
+	@BusinessID int
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+	SELECT [BusinessID]
+		  ,[BusinessName]
+		  ,[BusinessEmail]
+		  ,[BusinessAddress]
+		  ,[BusinessHoursStart]
+		  ,[BusinessHoursEnd]
+		  ,[WebsiteUrl]
+		  ,[FacebookUrl]
+		  ,[ImageGalleryUrl]
+		  ,[Other]
+		  ,[TypeOfBusiness]
+		  ,[AppLink]
+		  ,[IsPublic]
+		  ,[AppStatus]
+		  ,[UserName]
+		  ,[Active]
+	  FROM [dbo].[Business]
+	 WHERE [BusinessID] = @BusinessID
+    
+END
+GO
+
 --app requests
 CREATE TABLE AppRequest
 (
@@ -325,6 +357,46 @@ BEGIN
 		  ,NULL
 		  ,0
 	  FROM [dbo].[Feature]
+    
+END
+GO
+
+CREATE PROCEDURE [dbo].[p_AppRequests_GetActive]
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+	SELECT [AppRequestID]
+		  ,[DateRequested]
+		  ,[BusinessID]
+		  ,[DevStatus]
+		  ,[Active]
+	  FROM [dbo].[AppRequest]
+	 WHERE [Active] = 1
+    
+END
+GO
+
+CREATE PROCEDURE [dbo].[p_AppRequest_Update]
+(
+	 @AppRequestID int
+	,@DateRequested date
+    ,@BusinessID int
+    ,@DevStatus varchar(250)
+)
+AS
+BEGIN
+	-- cpk:<date>
+	-- 
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[AppRequest]
+	   SET [DateRequested] = @DateRequested --date
+		  ,[BusinessID] = @BusinessID --int
+		  ,[DevStatus] = @DevStatus --varchar(250)
+	 WHERE [AppRequestID] = @AppRequestID
     
 END
 GO

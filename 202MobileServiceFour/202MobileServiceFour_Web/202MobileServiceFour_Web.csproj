@@ -94,10 +94,12 @@
     <Content Include="Assets\CSS\style.css" />
     <Content Include="Assets\IMG\daniel-suarez-photography-107973-unsplash.jpg" />
     <Content Include="Assets\IMG\dewet-willemse-360936-unsplash.jpg" />
+    <Content Include="Assets\IMG\rawpixel-649916-unsplash.jpg" />
     <Content Include="Assets\IMG\StockSnap_CJHT72QTRI.jpg" />
     <Content Include="Assets\IMG\StockSnap_ZYGIOUX4QU.jpg" />
     <Content Include="Assets\IMG\swaminathan-jayaraman-707678-unsplash.jpg" />
     <Content Include="Assets\JS\Angular\AdminModule.js" />
+    <Content Include="Assets\JS\Angular\AppRequestCtrl.js" />
     <Content Include="Assets\JS\Angular\FeatureCtrl.js" />
     <Content Include="Assets\JS\Angular\ProfileCtrl.js" />
     <Content Include="Assets\JS\Angular\UserCtrl.js" />

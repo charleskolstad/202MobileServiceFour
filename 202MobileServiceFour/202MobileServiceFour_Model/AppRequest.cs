@@ -10,8 +10,9 @@ namespace _202MobileServiceFour_Model
     {
         public int AppRequestID { get; set; }
         public DateTime DateRequested { get; set; }
-        public int BusinessID { get; set; }
+        public Business AppBusiness { get; set; }
         public string DevStatus { get; set; }
         public bool Active { get; set; }
+        List<FeatureRequested> RequestedFeatures { get; set; }
     }
 }
