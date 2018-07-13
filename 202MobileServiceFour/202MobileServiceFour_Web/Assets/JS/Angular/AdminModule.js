@@ -7,6 +7,8 @@
         templateUrl: "/Admin/AllFeatures"
     }).when("/allRequests", {
         templateUrl: "/Admin/AppRequests"
+    }).when("/allBusinesses", {
+        templateUrl: "/Admin/Businesses"
     }).otherwise({
         
     });

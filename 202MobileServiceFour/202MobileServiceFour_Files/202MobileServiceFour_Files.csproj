@@ -67,6 +67,7 @@
     <Content Include="202html\yourapp.html" />
     <Content Include="SQL\Membership.sql" />
     <Content Include="SQL\Tables.sql" />
+    <Content Include="SQL\Updates.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -43,5 +43,12 @@ namespace _202MobileServiceFour_Test
 
             Assert.IsTrue(isNullString == expected);            
         }
+
+        public void BusinessGetAll_ReturnList()
+        {
+            List<Business> businesses = BusinessManager.BusinessGetAll(true);
+
+            Assert.IsTrue(businesses.Count() > 0);
+        }
     }
 }

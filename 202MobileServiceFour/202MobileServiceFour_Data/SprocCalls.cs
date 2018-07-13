@@ -191,6 +191,11 @@ namespace _202MobileServiceFour_Data
 
             return business;
         }
+
+        public override DataTable BusinessGetAll()
+        {
+            return DBCommands.AdapterFill("p_Business_GetActive");
+        }
         #endregion
 
         #region requested feature
@@ -414,6 +419,48 @@ namespace _202MobileServiceFour_Data
 
             return new Business();
         }
+
+        public override DataTable BusinessGetAll()
+        {
+            DataTable businessTable = new DataTable();
+            businessTable.Columns.Add("BusinessID");
+            businessTable.Columns.Add("BusinessName");
+            businessTable.Columns.Add("BusinessEmail");
+            businessTable.Columns.Add("BusinessAddress");
+            businessTable.Columns.Add("BusinessHoursStart");
+            businessTable.Columns.Add("BusinessHoursEnd");
+            businessTable.Columns.Add("WebsiteUrl");
+            businessTable.Columns.Add("FacebookUrl");
+            businessTable.Columns.Add("ImageGalleryUrl");
+            businessTable.Columns.Add("Other");
+            businessTable.Columns.Add("TypeOfBusiness");
+            businessTable.Columns.Add("AppLink");
+            businessTable.Columns.Add("IsPublic");
+            businessTable.Columns.Add("AppStatus");
+            businessTable.Columns.Add("UserName");
+            businessTable.Columns.Add("Active");
+
+            DataRow row = businessTable.NewRow();
+            row["BusinessID"] = 1;
+            row["BusinessName"] = "Name";
+            row["BusinessEmail"] = "Test@Test.com";
+            row["BusinessAddress"] = "Address";
+            row["BusinessHoursStart"] = "7 AM";
+            row["BusinessHoursEnd"] = "8 PM";
+            row["WebsiteUrl"] = "test";
+            row["FacebookUrl"] = "facebook";
+            row["ImageGalleryUrl"] = "gallery";
+            row["Other"] = "other";
+            row["TypeOfBusiness"] = "type";
+            row["AppLink"] = "test";
+            row["IsPublic"] = true;
+            row["AppStatus"] = "status";
+            row["UserName"] = "test";
+            row["Active"] = true;
+            businessTable.Rows.Add(row);
+
+            return businessTable;
+        }
         #endregion
 
         #region requested features
@@ -510,6 +557,7 @@ namespace _202MobileServiceFour_Data
         public abstract bool BusinessUpdate(Business business);
         public abstract DataTable BusinessTypesAll();
         public abstract Business GetBusinessByID(int id);
+        public abstract DataTable BusinessGetAll();
         #endregion
 
         #region requested features

@@ -100,6 +100,7 @@
     <Content Include="Assets\IMG\swaminathan-jayaraman-707678-unsplash.jpg" />
     <Content Include="Assets\JS\Angular\AdminModule.js" />
     <Content Include="Assets\JS\Angular\AppRequestCtrl.js" />
+    <Content Include="Assets\JS\Angular\BusinessCtrl.js" />
     <Content Include="Assets\JS\Angular\FeatureCtrl.js" />
     <Content Include="Assets\JS\Angular\ProfileCtrl.js" />
     <Content Include="Assets\JS\Angular\UserCtrl.js" />
@@ -141,6 +142,7 @@
     <Content Include="Views\Apps\OrderResult.cshtml" />
     <Content Include="Views\Admin\AppRequests.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Admin\Businesses.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

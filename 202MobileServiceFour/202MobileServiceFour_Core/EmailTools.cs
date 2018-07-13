@@ -14,7 +14,6 @@ namespace _202MobileServiceFour_Core
             throw new NotImplementedException();
         }
 
-
         public bool SendToAll(string body)
         {
             List<UserInfo> allUsers = UserManager.GetAllUsers();
