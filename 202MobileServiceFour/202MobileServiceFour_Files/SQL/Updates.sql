@@ -1,3 +1,7 @@
+ALTER TABLE [dbo].[Business]
+ ADD [BusinessPhone] varchar(15) NULL,
+	 [BusinessImage] varchar(1000) NULL
+
 CREATE PROCEDURE [dbo].[p_Business_GetActive]
 AS
 BEGIN
@@ -10,6 +14,8 @@ BEGIN
 		  ,[BusinessEmail]
 		  ,[BusinessAddress]
 		  ,[BusinessHoursStart]
+		  ,[BusinessPhone]
+		  ,[BusinessImage]
 		  ,[BusinessHoursEnd]
 		  ,[WebsiteUrl]
 		  ,[FacebookUrl]

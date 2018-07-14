@@ -24,5 +24,6 @@ namespace _202MobileServiceFour_Model
         public bool IsPublic { get; set; }
         public UserInfo user { get; set; }
         public string AppStatus { get; set; }
+        public string BusinessImage { get; set; }
     }
 }

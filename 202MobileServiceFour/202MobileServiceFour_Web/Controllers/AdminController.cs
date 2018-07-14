@@ -260,6 +260,20 @@ namespace _202MobileServiceFour_Web.Controllers
             List<AppRequest> requests = AppRequestManager.AppRequestsGetAll();
             return Json(requests, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult AllBusinesses()
+        {
+            List<Business> businesses = BusinessManager.BusinessGetAll();
+            return Json(businesses, JsonRequestBehavior.AllowGet);
+        }
+
+        public string UpdateBusiness(Business business)
+        {
+            string errorMessage = string.Empty;
+
+            BusinessManager.BusinessUpdate(business, out errorMessage);
+            return errorMessage;
+        }
         #endregion
     }
 }

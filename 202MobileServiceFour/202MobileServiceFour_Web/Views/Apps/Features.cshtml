@@ -58,6 +58,7 @@
                                     @Html.CheckBoxFor(modelItem => Model.ToList()[i].Active, new { @class = "custom-control-input" })
                                     @Html.HiddenFor(modelItem => Model.ToList()[i].AppRequestID)
                                     @Html.HiddenFor(modelItem => Model.ToList()[i].FeatureRequestedID)
+                                    @Html.HiddenFor(modelItem => Model.ToList()[i].RequestedFeature.FeatureName)
                                     <span class="custom-control-indicator"></span>
                                     <span class="custom-control-description">@Model.ToList()[i].RequestedFeature.FeatureName</span>
                                 </label>

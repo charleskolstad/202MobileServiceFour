@@ -9,17 +9,17 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
+                        <th scope="col">Business Name</th>
+                        <th scope="col">Contact Name</th>
+                        <th scope="col">Public</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="biz in data.Businesses">
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
+                        <th scope="row">{{biz.BusinessName}}</th>
+                        <td>{{biz.user.UserName}}</td>
+                        <td>{{biz.IsPublic}}</td>
                         <td>
                             <button class="btn btn-info" ng-click="SetupBusiness()">View</button>
                         </td>
@@ -40,7 +40,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   <div ng-show="ShowPage(1)"></div>
+                   <div ng-show="ShowPage(1)">
+
+                   </div>
                 </div>
             </div>
         </div>

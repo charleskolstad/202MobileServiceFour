@@ -3,7 +3,7 @@
     $scope.Business = {};
     $scope.ModalPage = 1;
 
-    $http.get(dataUrl + '').then(function (data) {
+    $http.get(dataUrl + '/Admin/AllBusinesses').then(function (data) {
         $scope.data.Businesses = data.data;
     }), function (error) {
         $scope.data.error = error;
@@ -37,7 +37,7 @@
     $scope.SaveModel = function (model) {
         $http({
             method: "post",
-            url: dataUrl + "",
+            url: dataUrl + "/Admin/UpdateBusiness",
             datatype: "json",
             data: JSON.stringify(model)
         }).then(function (response) {
