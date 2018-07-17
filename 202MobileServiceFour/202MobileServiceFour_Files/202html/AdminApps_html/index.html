@@ -18,28 +18,28 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">                
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" id="Nav-AppRequest">
                     <a class="nav-link" href="#!/appRequests">
                         <i class="fa fa-fw fa-mobile"></i>
                         <span class="nav-link-text">App Requests</span>
                     </a>
                 </li>
                    
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" id="Nav-Features">
                     <a class="nav-link" href="#!/allFeatures">
                         <i class="fa fa-fw fa-cog"></i>
                         <span class="nav-link-text">Features</span>
                     </a>
                 </li>
                    
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" id="Nav-Business">
                     <a class="nav-link" href="#!/allBusiness">
                         <i class="fa fa-fw fa-suitcase"></i>
                         <span class="nav-link-text">Businesses</span>
                     </a>
                 </li>                  
                    
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" id="Nav-Users">
                     <a class="nav-link" href="#!/allUsers">
                         <i class="fa fa-fw fa-users"></i>
                         <span class="nav-link-text">Users</span>
@@ -115,6 +115,24 @@
     <script src="Assets/JS/angular/FeatureCtrl.js"></script>
     <script src="Assets/JS/angular/AppRequestCtrl.js"></script>
     <script src="Assets/JS/angular/BusinessCtrl.js"></script>
+    <script src="Assets/JS/crop.js"></script>
+    
+<!--
+    <script>            
+        
+        let highlightNav = function(){
+            for(let i = 0; i < document.getElementsByClassName('nav-item').length; i++){
+                document.getElementsByClassName('nav-item')[i].style.backgroundColor = "#343a40";
+            }
+            
+            this.style.backgroundColor = "rgba(255,255,255,0.1)";
+        }
+        
+        for(let i = 0; i < document.getElementsByClassName('nav-item').length; i++){
+            document.getElementsByClassName('nav-item')[i].addEventListener('click', highlightNav, false);
+        }
+    </script>
+-->
 </body>
 </html>
 

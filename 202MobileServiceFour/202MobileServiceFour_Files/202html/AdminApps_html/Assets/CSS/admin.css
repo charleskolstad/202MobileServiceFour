@@ -279,3 +279,7 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 .profile-name{
     border-bottom: solid 1px;
 }
+
+.cancel-image {
+    display: none;
+}

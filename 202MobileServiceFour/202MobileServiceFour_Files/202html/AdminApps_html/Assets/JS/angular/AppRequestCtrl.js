@@ -5,6 +5,7 @@ angular.module("Admin").controller("AppRequestCtrl", function ($http, $scope, da
     $scope.ModalTitle;
     $scope.SelectedPage = 1;
     $scope.PageSize = 12;
+    $scope.DeleteMessage;
     
     $scope.data ={
         appRequest:[{
@@ -16,8 +17,21 @@ angular.module("Admin").controller("AppRequestCtrl", function ($http, $scope, da
         $scope.SelectedView = 1;
         $scope.ModalTitle = 'Business Information';
         
-        $scope.Edit = true;
         angular.element("#appRequestModal").modal('show');
+    }
+    
+    $scope.DeleteRequeset = function(request){
+        $scope.AppRequest = request;        
+        $scope.DeleteMessage = "Are you sure you want to delete app request for " + request.Business.BusinessName + " created on " + request.DateRequested;
+        $scope.SelectedView = 3;
+        
+        angular.element("#appRequestModal").modal('show');
+    }
+    
+    $scope.CommitDelete = function(){
+        $scope.AppRequest.AppRequestID;
+        
+        angular.element("#appRequestModal").modal('hide');
     }
     
     $scope.ChangeView = function(page){

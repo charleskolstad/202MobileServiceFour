@@ -2,6 +2,8 @@
     <div class="card">
         <div class="card-header"></div>
         <div class="card-body">
+            <h4 class="display-4 mb-3">All App Requests</h4>
+           
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -13,13 +15,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="request in data.appRequest">
+                    <tr ng-repeat="request in data.appRequest | filter: false | range:SelectedPage:PageSize">
                         <th scope="row">{{request.Business.BusinessName}}</th>
                         <td>{{request.Business.User.Name}}</td>
                         <td>{{request.DevStatus}}</td>
                         <td>{{request.DateRequested}}</td>
                         <td>
                             <button class="btn btn-info" ng-click="SetupAppRequest(request)">View</button>
+                            <button class="btn btn-warning" ng-click="DeleteRequeset(request)">Delete</button>
                         </td>
                     </tr>                        
                 </tbody>
@@ -114,7 +117,11 @@
                         </table><hr>
                         <button class="btn btn-success" ng-click="ChangeView(1)">View Business Information</button>
                     </div>
-                    <div id="appRequestDelete"></div>
+                    <div ng-show="ShowView(3)">
+                        <span ng-bind="DeleteMessage"></span><hr>
+                        <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-danger" ng-click="CommitDelete()">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
