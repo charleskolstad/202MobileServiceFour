@@ -1,0 +1,122 @@
+<div ng-controller="AppRequestCtrl">
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Business Name</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">App Status</th>
+                        <th scope="col">Date Requested</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="request in data.appRequest">
+                        <th scope="row">{{request.Business.BusinessName}}</th>
+                        <td>{{request.Business.User.Name}}</td>
+                        <td>{{request.DevStatus}}</td>
+                        <td>{{request.DateRequested}}</td>
+                        <td>
+                            <button class="btn btn-info" ng-click="SetupAppRequest(request)">View</button>
+                        </td>
+                    </tr>                        
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>    
+                    </li>
+                    <li class="page-item" ng-repeat="page in data.appRequest | pageCount:PageSize">
+                        <a class="page-link" ng-click="SelectPage($index + 1)">{{$index + 1}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="appRequestModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" ng-bind="ModalTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div ng-show="ShowView(1)">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Business Name</th>
+                                    <td>{{AppRequest.Business.BusinessName}}</td>
+                                    <th scope="row">Busines Email</th>
+                                    <td>{{AppRequest.Business.BusinessEmail}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Business Start</th>
+                                    <td>{{AppRequest.Business.BusinessHoursStart}}</td>
+                                    <th scope="row">Busines End</th>
+                                    <td>{{AppRequest.Business.BusinessHoursEnd}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Business Phone</th>
+                                    <td>{{AppRequest.Business.BusinessPhone}}</td>
+                                    <th scope="row">Busines Address</th>
+                                    <td>{{AppRequest.Business.BusinessAddress}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Website Url</th>
+                                    <td>{{AppRequest.Business.WebsiteUrl}}</td>
+                                    <th scope="row">Facebook Url</th>
+                                    <td>{{AppRequest.Business.FacebookUrl}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Image Gallery Url</th>
+                                    <td>{{AppRequest.Business.ImageGalleryUrl}}</td>
+                                    <th scope="row">Other</th>
+                                    <td>{{AppRequest.Business.Other}}</td>
+                                </tr>
+                            </tbody>
+                        </table><hr>
+                        <button class="btn btn-success" ng-click="ChangeView(2)">View Requested Features</button>
+                    </div>
+                    
+                    <div ng-show="ShowView(2)">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Feature Name</th>
+                                    <th scope="col">Date Requested</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="feature in AppRequest.FeaturesRequested">
+                                    <th scope="row">{{feature.RequestedFeature.FeatureName}}</th>
+                                    <td>{{feature.DateRequested}}</td>
+                                </tr>
+                            </tbody>
+                        </table><hr>
+                        <button class="btn btn-success" ng-click="ChangeView(1)">View Business Information</button>
+                    </div>
+                    <div id="appRequestDelete"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

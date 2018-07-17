@@ -1,0 +1,67 @@
+<div ng-controller="BusinessCtrl">
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Business Name</th>
+                        <th scope="col">Business Phone</th>
+                        <th scope="col">Is Public</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="business in data.Business | filter: true | range:SelectedPage:PageSize">
+                        <th scope="row">{{business.BusinessName}}</th>
+                        <td>{{business.BusinessPhone}}</td>
+                        <td>{{business.IsPublic}}</td>
+                        <td>
+                            <button class="btn btn-info" ng-click="SetupBusiness(business)">View</button>
+                            <button class="btn btn-warning" ng-click="">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>    
+                    </li>
+                    <li class="page-item" ng-repeat="page in data.Business | pageCount:PageSize">
+                        <a class="page-link" ng-click="SelectPage($index + 1)">{{$index + 1}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="businessModal" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div ng-show="ShowView(1)"></div>
+                    <div ng-show="ShowView(2)"></div>
+                    <div ng-show="ShowView(3)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

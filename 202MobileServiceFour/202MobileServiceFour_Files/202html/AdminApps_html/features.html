@@ -12,7 +12,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="feature in data.Features">
+                    <tr ng-repeat="feature in data.Features | filter: true | range:SelectedPage:PageSize">
                         <th scope="row">{{feature.FeatureName}}</th>
                         <td>Yes</td>
                         <td>
@@ -23,7 +23,27 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer"></div>
+        <div class="card-footer">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>    
+                    </li>
+                    <li class="page-item" ng-repeat="page in data.Features | pageCount:PageSize">
+                        <a class="page-link" ng-click="SelectPage($index + 1)">{{$index + 1}}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
