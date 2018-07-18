@@ -47,12 +47,14 @@
     <Content Include="202html\AdminApps_html\apprequest.html" />
     <Content Include="202html\AdminApps_html\Assets\CSS\admin.css" />
     <Content Include="202html\AdminApps_html\Assets\CSS\login.css" />
+    <Content Include="202html\AdminApps_html\Assets\IMG\prudence-earl-599273-unsplash.jpg" />
     <Content Include="202html\AdminApps_html\Assets\IMG\_MG_mobile.jpg" />
     <Content Include="202html\AdminApps_html\Assets\JS\angular\AdminModule.js" />
     <Content Include="202html\AdminApps_html\Assets\JS\angular\AppRequestCtrl.js" />
     <Content Include="202html\AdminApps_html\Assets\JS\angular\BusinessCtrl.js" />
     <Content Include="202html\AdminApps_html\Assets\JS\angular\FeatureCtrl.js" />
     <Content Include="202html\AdminApps_html\Assets\JS\angular\UsersCtrl.js" />
+    <Content Include="202html\AdminApps_html\Assets\JS\crop.js" />
     <Content Include="202html\AdminApps_html\Assets\JS\SideNav.js" />
     <Content Include="202html\AdminApps_html\business.html" />
     <Content Include="202html\AdminApps_html\features.html" />

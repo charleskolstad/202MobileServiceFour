@@ -5,7 +5,7 @@ angular.module("Admin").controller("AppRequestCtrl", function ($http, $scope, da
     $scope.ModalTitle;
     $scope.SelectedPage = 1;
     $scope.PageSize = 12;
-    $scope.DeleteMessage;
+    $scope.DeleteMessage = "";
     
     $scope.data ={
         appRequest:[{
@@ -16,6 +16,7 @@ angular.module("Admin").controller("AppRequestCtrl", function ($http, $scope, da
         $scope.AppRequest = request;
         $scope.SelectedView = 1;
         $scope.ModalTitle = 'Business Information';
+        $scope.DeleteMessage = "";
         
         angular.element("#appRequestModal").modal('show');
     }
