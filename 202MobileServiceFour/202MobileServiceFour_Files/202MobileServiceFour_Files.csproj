@@ -60,6 +60,7 @@
     <Content Include="202html\AdminApps_html\features.html" />
     <Content Include="202html\AdminApps_html\index.html" />
     <Content Include="202html\AdminApps_html\profile.html" />
+    <Content Include="202html\AppRequests.html" />
     <Content Include="202html\assets\css\style.css" />
     <Content Include="202html\assets\img\daniel-suarez-photography-107973-unsplash.jpg" />
     <Content Include="202html\assets\img\dewet-willemse-360936-unsplash.jpg" />
@@ -69,8 +70,12 @@
     <Content Include="202html\assets\img\swaminathan-jayaraman-707678-unsplash.jpg" />
     <Content Include="202html\assets\js\requestapp.js" />
     <Content Include="202html\assets\js\requestctrl.js" />
+    <Content Include="202html\Business.html" />
+    <Content Include="202html\Features.html" />
     <Content Include="202html\index.html" />
+    <Content Include="202html\Login.html" />
     <Content Include="202html\ourprojects.html" />
+    <Content Include="202html\Thankyou.html" />
     <Content Include="202html\yourapp.html" />
     <Content Include="SQL\Membership.sql" />
     <Content Include="SQL\Tables.sql" />
